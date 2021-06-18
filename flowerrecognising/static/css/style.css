@@ -1,0 +1,73 @@
+body {
+    background: #F8F8F8 !important;
+}
+
+.nav {
+    border-radius: 0px !important;
+    padding: 10px 0 10px 0 !important;
+    background-color: #ce8108 !important;
+
+}
+
+.mb-7 {
+    margin-bottom: 7px !important;
+}
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mymodal {
+    height: 300px !important;
+    top: 200px !important;
+    font-size: 20px !important;
+}
+
+.mymodal2 {
+    height: 300px !important;
+    top: 200px !important;
+    font-size: 20px !important;
+    width: 70%; !important;
+}
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+
+.w-big {
+    width: 200px !important;
+}
+
+.bwhite-lg {
+    background-color: transparent !important;
+}
+
+.bwhite-sm {
+    background-color: transparent !important;
+    width: 10px !important;
+}
+
+.comment-box {
+    display: none;
+}
+.ProfileContainer{
+  position: relative;
+    width: 32px;
+    height: 32px;
+    background: center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+/*.image-fit{*/
+/*  height: 350px; !important;*/
+/*  width: 100%; !important;*/
+/*  object-fit: cover;*/
+/*}*/
+
+.img-cover{
+  object-fit: cover;
+}
+button{
+  cursor: pointer;
+}

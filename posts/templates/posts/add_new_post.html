@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+add new post
+{% endblock title %}
+
+{% block content %}
+    <div class='ui segment'>
+        <div class="header">
+      Add new plant
+    </div>
+    <div class="image content">
+
+      <div class="description">
+        <div class="ui header"></div>
+        <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{ form2.as_p }}
+
+      </div>
+    </div>
+    <div class="actions">
+      <button type='submit' class="ui positive right labeled icon button">
+        Add
+        <i class="checkmark icon"></i>
+      </button>
+      </form>
+    </div>
+    </div>
+{% endblock content %}

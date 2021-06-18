@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Post{% endblock title %}
+
+{% block content %}
+
+
+  <div clas="ui segment">
+    <div class="ui grid">
+      <div class='row'>
+        <div class='eight wide column'>
+          <img style="max-height: 500px ; width: auto ; object-fit: cover;" class="ui medium rounded image centered "
+               src={{ post.image.url }}>
+
+          <div class="ui segment centered ">
+            <div class="content">
+              <div class="ui header centered">{{ post.plant_name }}</div>
+
+              <div class="description">x
+                {{ post.content }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='eight wide column'>
+
+          <div class="ui segment">
+            <div class="content">
+              <div class="header"> <h2>{{ plant.plant_name }}</h2></div>
+
+              <div class="description">
+                <img class="ui small left floated image" src={{ plant.image.url }}>
+                <h3>{{ plant.article }}</h3>
+                <table class="ui basic table">
+<thead>
+    <tr><th>Scientific classification</th>
+      <th></th>
+
+  </tr></thead>
+                  <tbody>
+                  <tr>
+                    <td >Family</td>
+                    <td >{{ plant.Family }}</td>
+
+                  </tr>
+                  <tr>
+                    <td >Tribe</td>
+                    <td >{{ plant.Tribe }}</td>
+
+                  </tr>
+                  <tr>
+                    <td >Genus</td>
+                    <td >{{ plant.Genus }}</td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% if post.plant_name == "Plant" %}
+  <script>
+$(document).ready(function(){
+    console.log('hello world')
+
+        console.log('working')
+        $('.ui.mymodal')
+        .modal('show')
+
+
+    $('.ui.dropdown').dropdown()
+})
+  </script>
+  {% endif %}
+{% endblock content %}

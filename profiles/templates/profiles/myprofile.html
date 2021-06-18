@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  my profile
+{% endblock title %}
+
+{% block content %}
+  {% url 'posts:add-post-view' as path_to_add_post %}
+  <!-- MODAL -->
+  <div class="ui modal mymodal">
+    <i class="close icon"></i>
+    <div class="header">
+      Update your Profile
+    </div>
+    <div class="image content">
+      <div class="ui medium image">
+        <img src="{{ profile.avatar.url }}">
+      </div>
+      <div class="description">
+        <div class="ui header">Provide some additional/newest info about you</div>
+        <form action="{% url "profiles:my-profile-view" %}" method="POST" class="ui form" enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{ form.as_p }}
+      </div>
+    </div>
+    <div class="actions">
+      <button type='submit' class="ui positive right labeled icon button">
+        Update
+        <i class="checkmark icon"></i>
+      </button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="ui segment">
+    {% if confirm %}
+      <div class="ui green message">Your profile has been updated</div>
+    {% endif %}
+    <h3>My profile: {{ request.user }}</h3>
+    <div class="ui grid">
+      <div class='row'>
+        <div class='seven wide column'>
+          <img style="max-height: 300px ; width: auto" class="ui medium rounded image " src={{ profile.avatar.url }}>
+          <div class="column">
+            <div class="ui three column grid">
+              <div class="column mt-5">
+                <button class='ui secondary button' id='modal-btn'>Update your profile</button>
+              </div>
+              <div class=" column mt-5">
+                <a href="{{ path_to_add_post }}" class="item">
+
+                  <button class='ui secondary button' id='modal-btn'>Add new Plant</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nine wide column">
+          <table class="ui table">
+            <tbody>
+            <tr>
+              <td>Username</td>
+              <td>{{ profile.user }}</td>
+            </tr>
+            <tr>
+              <td>First name</td>
+              <td>{{ profile.first_name }}</td>
+            </tr>
+            <tr>
+              <td>Last name</td>
+              <td>{{ profile.last_name }}</td>
+            </tr>
+            <tr>
+              <td>Bio</td>
+              <td>{{ profile.bio }}</td>
+            </tr>
+            </tbody>
+          </table>
+
+
+          <div class="ui  right floated statistics huge ">
+            <div class="statistic">
+              <div class="value">
+                {{ profile.get_friends_no }}
+              </div>
+              <div class="label">
+                Friends
+              </div>
+            </div>
+            <div class="statistic">
+              <div class="value">
+                {{ profile.get_posts_no }}
+              </div>
+              <div class="label">
+                Posts
+              </div>
+            </div>
+            <div class="statistic">
+              <div class="value">
+                {{ profile.get_likes_given_no }}
+              </div>
+              <div class="label">
+                Likes given
+              </div>
+            </div>
+            <div class="statistic">
+              <div class="value">
+                {{ profile.get_likes_recieved_no }}
+              </div>
+              <div class="label">
+                Likes received
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="ui three column grid">
+      {% for obj in myposts %}
+        <div class="column">
+
+          <div class="ui fluid card ">
+            <a href="{% url 'posts:post-detail' obj.pk %}">
+              <div class="image ">
+                <img style="height: 350px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+
+             </div>
+            </a>
+            <div class="content">
+              <div class="ui three column pagged grid center aligned">
+                <div class="column">
+                  <a class="ui button bwhite-lg" href="{% url 'posts:post-update' obj.pk %}">
+                    Update
+                  </a>
+                </div>
+                <div class="column">
+                  <a class="ui button bwhite-lg " href="{% url 'posts:post-detail' obj.pk %}">
+                    Detais
+                  </a>
+                </div>
+                <div class="column">
+                  <a class="ui button bwhite-lg" href="{% url 'posts:post-delete' obj.pk %}">
+                    Delete
+                  </a>
+                </div>
+              </div>
+              <div class="ui divider"></div>
+
+              <span class="right floated">
+      <i class="heart outline like icon"></i>
+      {{ obj.num_likes }} &nbsp likes
+    </span>
+              <i class="comment icon"></i>
+              {{ obj.num_comments }} &nbsp comments
+            </div>
+ <div class="ui bottom attached tinny red progress">
+              <div class="bar"></div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+
+{% endblock content %}
