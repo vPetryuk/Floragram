@@ -10,9 +10,12 @@ Welcome to Floragram's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   instalation
-
-
+   posts_views
+   posts_models
+   profiles_views
+   profiles_models
+   floropedia_models
+   CNN
 
 
 Indices and tables

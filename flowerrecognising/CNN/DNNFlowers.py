@@ -91,10 +91,15 @@ img_size = 224
 #
 
 
-# model = keras.models.load_model("flowerrecognising/CNN/model3.h5")
+model = keras.models.load_model("flowerrecognising/CNN/model3.h5")
 
 
 def process_image(img):
+    '''
+    Function is used before prediction to prepare image
+    :param img: image in jpg format
+    :return: normalizated and resized image
+    '''
 
 
     # grayscale and normalization
@@ -113,8 +118,13 @@ def process_image(img):
     return img
 
 
-def predict(url):
-    img = process_image(url)
+def predict(img):
+    '''
+    Predict name of plant by using CNN model
+    :param img: image in jpg format
+    :return: Name of plant
+    '''
+    img = process_image(img)
     label = model.predict(img)
     final_1 = np.argmax(label, axis=1)[0]
     print(final_1)

@@ -5,18 +5,52 @@
 {% block content %}
 
 
-  <div clas="ui segment">
+  <div class="ui segment">
+
+
+    <div class="ui right close rail">
+
+      <table class="ui basic table">
+        <thead>
+        <tr>
+          <th>Scientific classification</th>
+          <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Family</td>
+          <td>{{ plant.Family }}</td>
+
+        </tr>
+        <tr>
+          <td>Tribe</td>
+          <td>{{ plant.Tribe }}</td>
+
+        </tr>
+        <tr>
+          <td>Genus</td>
+          <td>{{ plant.Genus }}</td>
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
     <div class="ui grid">
       <div class='row'>
         <div class='eight wide column'>
           <img style="max-height: 500px ; width: auto ; object-fit: cover;" class="ui medium rounded image centered "
                src={{ post.image.url }}>
 
-          <div class="ui segment centered ">
+          <div class="ui centered ">
             <div class="content">
-              <div class="ui header centered">{{ post.plant_name }}</div>
+              <div class="ui header centered mt-5">{{ post.plant_name }}</div>
 
-              <div class="description">x
+              <div class="description">
                 {{ post.content }}
               </div>
             </div>
@@ -26,54 +60,48 @@
 
           <div class="ui segment">
             <div class="content">
-              <div class="header"> <h2>{{ plant.plant_name }}</h2></div>
+              <div class="header"><h1>{{ plant.plant_name }}</h1></div>
 
               <div class="description">
                 <img class="ui small left floated image" src={{ plant.image.url }}>
                 <h3>{{ plant.article }}</h3>
-                <table class="ui basic table">
-<thead>
-    <tr><th>Scientific classification</th>
-      <th></th>
+                <div class="header">
+                  <h2>Growing conditions</h2>
+                </div>
 
-  </tr></thead>
-                  <tbody>
-                  <tr>
-                    <td >Family</td>
-                    <td >{{ plant.Family }}</td>
+                <h3>{{ plant.growing_conditions }}</h3>
 
-                  </tr>
-                  <tr>
-                    <td >Tribe</td>
-                    <td >{{ plant.Tribe }}</td>
-
-                  </tr>
-                  <tr>
-                    <td >Genus</td>
-                    <td >{{ plant.Genus }}</td>
-
-                  </tr>
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+
+    {% if   IsEmty %}
+      <div class="ui divider"></div>
+      <div class="ui header centered"> Stages of growth</div>
+      <div class="ui three column grid">
+      {% for obj in post.image_of_growth_stage %}
+        <div class="column">
+          <div class="ui fluid card ">
+            <div class="image ">
+              <img style="height: 350px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="column">
+        <div class="ui fluid card ">
+          <div class="image ">
+            <img style="height: 350px;width: 100%; object-fit: cover;" src={{ post.image.url }}>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    </div>
   </div>
-    {% if post.plant_name == "Plant" %}
-  <script>
-$(document).ready(function(){
-    console.log('hello world')
 
-        console.log('working')
-        $('.ui.mymodal')
-        .modal('show')
-
-
-    $('.ui.dropdown').dropdown()
-})
-  </script>
-  {% endif %}
 {% endblock content %}

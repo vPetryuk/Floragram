@@ -16,6 +16,13 @@ from PIL import Image
 
 @login_required
 def post_comment_create_and_list_view(request):
+    '''
+    View for main page which shows all posts
+    :param request:
+    :return page: Page main.html
+    :return context: context ( qs - list of all posts object , profile - profile of current user, p_form - PostModelForm , c_form , CommentModelForm ,post_added = boolean)
+
+    '''
     qs = Post.objects.all()
     profile = Profile.objects.get(user=request.user)
 
@@ -173,21 +180,36 @@ def recognise_post_view(request):
     return render(request, 'posts/recognising.html', context)
 
 class PostDetailView(LoginRequiredMixin, DetailView):
+    '''
+    View for detail page
+    :return context: post - current post taken by pk , plant - info about this type of plant taken from florapedia
+
+    '''
     model = Post
     template_name = 'posts/plant_detail.html'
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         post = Post.objects.get(pk=pk)
         plant = Plant.objects.get(plant_name=post.intended_plant_name)
+        history = self.get_object().image_of_growth_stage()
         context['post'] = post
         context['plant'] = plant
+        IsEmpty = True;
+        if history:
+            print("histtrue")
+            isEmpty = False;
+            context['IsEmty'] = IsEmpty
+            context['history'] = history
+
         return context
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
+    '''
+    Redirect to page to confirm deleting post
+    :param pk: Primary key of post which needs to be delete
+    '''
     model = Post
     template_name = 'posts/confirm_delete.html'
     success_url = reverse_lazy('posts:main-post-view')
@@ -201,6 +223,10 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return obj
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
+    '''
+    Redirect to page to update post
+    :param pk: Primary key of post which needs to be updated
+    '''
     form_class = PostModelForm
     model = Post
     template_name = 'posts/update.html'

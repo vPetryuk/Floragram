@@ -20,9 +20,9 @@ def my_profile_view(request):
     profile = Profile.objects.get(user=request.user)
     myposts = Post.objects.filter(author=profile)
     form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
-    form2 = PostModelForm(request.POST or None, request.FILES or None, )
+
     confirm = False
-    confirm2 = False
+
 
     if request.method == 'POST':
         print("chek2")
@@ -32,27 +32,17 @@ def my_profile_view(request):
             form.save()
             confirm = True
 
-    if request.method == 'POST':
-        if form2.is_valid():
-            form2.instance.author = profile
-            print(form2.instance.image.path)
-            image = Image.open(form2.instance.image)
-            pred = predict(image)
-            print(pred)
-            print("sheeesh")
-            form2.save()
-            confirm2 = True
+
 
     context = {
         'myposts':myposts,
         'profile': profile,
         'form': form,
-        'form2': form2,
         'confirm': confirm,
-        'confirm2': confirm2,
     }
 
     return render(request, 'profiles/myprofile.html', context)
+
 
 
 @login_required
@@ -125,6 +115,12 @@ def friends_list_view(request):
     return render(request, 'profiles/my_friends_list.html', context)
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
+    '''
+    View for user detail page
+    :return context: posts - all posts of user, len_posts - number of users posts , rel_receiver - list of users which got a invatation from current user,
+    rel_sender - list of users which send a invatation to current user
+
+    '''
     model = Profile
     template_name = 'profiles/detail.html'
 
@@ -153,6 +149,12 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
 
 class ProfileListView(LoginRequiredMixin, ListView):
+    '''
+    View for list of all users
+    :return qs: List of all users
+    :return context: is_empty - boolean wich check if some users are avaible ,rel_receiver - list of users which got a invatation from current user,
+    rel_sender - list of users which send a invatation to current user
+    '''
     model = Profile
     template_name = 'profiles/profile_list.html'
 

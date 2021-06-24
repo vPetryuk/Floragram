@@ -4,9 +4,18 @@ from profiles.models import Profile
 
 
 # Create your models here.
-class images(models.Model):
+class image_of_growth_stage(models.Model):
+    '''
+    Models is used to store history of plants growth
+    '''
+    plant_name = models.TextField(default="Plant")
     image = models.ImageField(upload_to='posts', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])],blank=True)
     created = models.DateTimeField(auto_now_add=True)
+
+
+class PostManager(models.Manager):
+    pass
+
 
 class Post(models.Model):
     content = models.TextField()
@@ -18,13 +27,18 @@ class Post(models.Model):
     plant_name = models.TextField(default="Plant")
     intended_plant_name =models.TextField(blank=True)
     date_of_last_watering =models.DateTimeField(auto_now_add=True)
-    history = models.ManyToManyField(images, blank=True, related_name='history')
+    history = models.ManyToManyField(image_of_growth_stage, blank=True, related_name='history')
+
+    objects = PostManager()
 
     def __str__(self):
         return str(self.content[:20])
 
     def num_likes(self):
         return self.liked.all().count()
+
+    def image_of_growth_stage(self):
+        return self.history.all()
 
     def num_comments(self):
         return self.comment_set.all().count()
