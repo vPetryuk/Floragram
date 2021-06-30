@@ -6,12 +6,14 @@ from .models import Profile, Relationship
 from .forms import ProfileModelForm
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from flowerrecognising.CNN.DNNFlowers import predict
 from PIL import Image
+
 
 # Create your views here.
 
@@ -23,26 +25,21 @@ def my_profile_view(request):
 
     confirm = False
 
-
     if request.method == 'POST':
-        print("chek2")
         if form.is_valid():
             print("chek3")
             print(form)
             form.save()
             confirm = True
 
-
-
     context = {
-        'myposts':myposts,
+        'myposts': myposts,
         'profile': profile,
         'form': form,
         'confirm': confirm,
     }
 
     return render(request, 'profiles/myprofile.html', context)
-
 
 
 @login_required
@@ -105,6 +102,7 @@ def profiles_list_view(request):
 
     return render(request, 'profiles/profile_list.html', context)
 
+
 @login_required
 def friends_list_view(request):
     user = request.user
@@ -114,12 +112,12 @@ def friends_list_view(request):
 
     return render(request, 'profiles/my_friends_list.html', context)
 
+
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     '''
     View for user detail page
     :return context: posts - all posts of user, len_posts - number of users posts , rel_receiver - list of users which got a invatation from current user,
     rel_sender - list of users which send a invatation to current user
-
     '''
     model = Profile
     template_name = 'profiles/detail.html'
@@ -158,8 +156,6 @@ class ProfileListView(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'profiles/profile_list.html'
 
-
-
     def get_queryset(self):
         qs = Profile.objects.get_all_profiles(self.request.user)
         return qs
@@ -192,9 +188,7 @@ def send_invatation(request):
         user = request.user
         sender = Profile.objects.get(user=user)
         receiver = Profile.objects.get(pk=pk)
-
         rel = Relationship.objects.create(sender=sender, receiver=receiver, status='send')
-
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('profiles:my-profile-view')
 

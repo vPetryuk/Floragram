@@ -22,12 +22,16 @@
                 </div>
 
                 </div>
+             <a href={{obj.author.get_absolute_url}}>
                 <img class="ui avatar image img-cover" src={{obj.author.avatar.url}}>
+             </a>
                 {{ obj.author.user }} - {{ obj.created|timesince}} ago
             </div>
             <div class="ui fluid image pd">
                 {% if obj.image %}
+  <a href="{% url 'posts:post-detail' obj.pk %}">
                     <img src={{obj.image.url}}>
+  </a>
                 {% endif %}
             </div>
 
@@ -79,7 +83,7 @@
 
                         <div class="ui segment mb-5">
                             <img class="ui avatar image" src={{c.user.avatar.url}}>
-                            <span>{{ c.user }}</span>
+                            <span>{{ c.user.first_name }} </span>  <span>{{ c.user.last_name }}</span>
                             <div class='mt-5'>{{ c.body }}</div>
                         </div>
 

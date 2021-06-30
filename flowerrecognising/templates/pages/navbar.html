@@ -21,6 +21,10 @@
     {% endif %}
 
     <div class="right menu">
+
+
+
+
         {% if request.user.is_authenticated %}
         <div class="item">
             <div class="ui floating dropdown icon button secondary"> Friends
@@ -41,6 +45,9 @@
                 </div>
              </div>
         </div>
+          <a href="{{path_to_my_profile}}" class="item">
+                       <h3> Florapedia</h3>
+                </a>
            <a href="{{path_to_add_post}}" class="item">
                        <h3> Add new Plant</h3>
                 </a>

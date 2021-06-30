@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 flowerrecognising/CNN/model3.h5
+flowerrecognising/CNN/model4.h5
 # C extensions
 *.so
 

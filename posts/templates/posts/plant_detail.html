@@ -8,6 +8,8 @@
   <div class="ui segment">
 
 
+
+
     <div class="ui right close rail">
 
       <table class="ui basic table">
@@ -43,11 +45,23 @@
     <div class="ui grid">
       <div class='row'>
         <div class='eight wide column'>
+           <a  href={{post.author.get_absolute_url}} class="ui gray ribbon label">
+
+
+
+                {{post.author.first_name}}
+                {{post.author.last_name}}
+
+
+ </a>
+
+
           <img style="max-height: 500px ; width: auto ; object-fit: cover;" class="ui medium rounded image centered "
                src={{ post.image.url }}>
 
           <div class="ui centered ">
             <div class="content">
+
               <div class="ui header centered mt-5">{{ post.plant_name }}</div>
 
               <div class="description">
@@ -60,6 +74,7 @@
 
           <div class="ui segment">
             <div class="content">
+
               <div class="header"><h1>{{ plant.plant_name }}</h1></div>
 
               <div class="description">
@@ -95,9 +110,10 @@
       {% endfor %}
       <div class="column">
         <div class="ui fluid card ">
-          <div class="image ">
-            <img style="height: 350px;width: 100%; object-fit: cover;" src={{ post.image.url }}>
-          </div>
+          <a class="ui label massive" href="{% url 'posts:post-update' post.pk %}">
+
+          <i class="add icon massive gray" style="height: 250px;width: 100%; margin-top: 70px" }></i>
+          </a>
         </div>
       </div>
     {% endif %}

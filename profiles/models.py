@@ -1,12 +1,11 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model as user_model
+
 User = user_model()
 from .utils import get_random_code
 from django.template.defaultfilters import slugify
 from django.db.models import Q
-
-
 
 
 # Create your models here.
@@ -44,6 +43,7 @@ class ProfileManager(models.Manager):
         for item in qs:
             friend_profiles.append(Profile.objects.get(user=item))
         return friend_profiles
+
 
 class Profile(models.Model):
     first_name = models.CharField(max_length=200, blank=True)

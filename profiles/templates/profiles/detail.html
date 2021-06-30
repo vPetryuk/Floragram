@@ -10,7 +10,7 @@
     <div class="row">
       <div class="four wide column">
         <img class="ui medium rounded image" src={{ object.avatar.url }}>
-        <h1>{{ object.user }}</h1>
+        <h1>{{ object.first_name }} {{ object.last_name }}</h1>
         <div class="ui vertical fluid menu">
           <div class="item">
             Posts
@@ -48,23 +48,50 @@
           <form action="{% url 'profiles:remove-friend' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="profile_pk" value={{ object.pk }}>
-            <button type="submit" class="ui negative basic button mb-5 w-big"><i class="minus square icon"></i>Remove
-              from friends
+            <button type="submit" class="ui negative basic button mb-5 w-big"><i class="minus square icon"></i>
+              Remove from friends
             </button>
           </form>
         {% endif %}
+      </div>
+      <div class="twelve wide column">
+        {% if len_posts %}
+          <div class="ui two column grid">
+            {% for obj in posts %}
+              <div class="column">
 
-        <div class="twelve wide column">
-          {% if len_posts %}
-            {% for post in posts %}
-              <div class="segment ui fluid">
-                {{ post.content }}
+                <div class="ui fluid card ">
+
+                  <div class="image ">
+                    <a href="{% url 'posts:post-detail' obj.pk %}">
+                      <img style="height: 350px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+                    </a>
+                  </div>
+ <div class="content">
+
+                  {{ obj.content }}
+
+
+                  <div class="ui divider"></div>
+
+                  <span class="right floated">
+                 <i class="heart outline like icon"></i>
+                    {{ obj.num_likes }} &nbsp likes </span>
+
+                  <i class="comment icon"></i>
+                  {{ obj.num_comments }} &nbsp comments
+                </div>
+                <div class="ui bottom attached tinny red progress">
+                  <div class="bar"></div>
+                </div>
               </div>
+              </div>
+
             {% endfor %}
-          {% else %}
-            <h1>No posts of this user ...</h1>
-          {% endif %}
-        </div>
+            </div>
+        {% else %}
+          <h1>No posts of this user ...</h1>
+        {% endif %}
       </div>
     </div>
   </div>
