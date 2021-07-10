@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from florapedia.models import Plant
-from flowerrecognising.CNN.DNNFlowers import predict
+from flowerrecognising.CNN.DNNFlowers import predict, scientific_to_fine_percent, scientific_to_real
 from .models import Post, Like, image_of_growth_stage
 from profiles.models import Profile
 from .forms import PostModelForm, CommentModelForm, PostModelNameForm
@@ -116,12 +116,7 @@ def add_post_view(request):
     if request.method == 'POST':
         if form2.is_valid():
             form2.instance.author = profile
-            image = Image.open(form2.instance.image)
-            print(predict(image))
-            form2.instance.intended_plant_name = predict(image)
-            print(form2.instance.intended_plant_name)
             form2.save()
-            confirm2 = True
             return redirect('posts:recognise-post-view')
 
     context = {
@@ -136,12 +131,15 @@ def add_post_view(request):
     return render(request, 'posts/add_new_post.html', context)
 
 
+
 @login_required
 def recognise_post_view(request):
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.filter(author=profile).latest('created')
-    plant = Plant.objects.get(plant_name=post.intended_plant_name)
+    #plant = Plant.objects.get(plant_name=post.intended_plant_name)
     form = PostModelNameForm(request.POST or None, request.FILES or None, instance=post)
+    print(post.image)
+    predictions = predict(Image.open(post.image))
     confirm = False
 
     if request.method == 'POST':
@@ -150,14 +148,25 @@ def recognise_post_view(request):
             confirm = True
             return redirect('posts:post-detail', form.instance.pk)
 
+
+
+
     context = {
         'post': post,
-        'plant': plant,
         'profile': profile,
         'form': form,
         'confirm': confirm,
-    }
+        'prediction1':predictions[0][0],
+        'prediction2': predictions[1][0],
+        'prediction3': predictions[2][0],
+        'prediction4': predictions[3][0],
+        'prediction5': predictions[4][0],
+        'probability2': scientific_to_fine_percent(predictions[1][1],predictions[1][1]),
+        'probability3': scientific_to_fine_percent(predictions[2][1],predictions[1][1]),
+        'probability4': scientific_to_fine_percent(predictions[3][1],predictions[1][1]),
+        'probability5': scientific_to_fine_percent(predictions[4][1],predictions[1][1]),
 
+    }
     return render(request, 'posts/recognising.html', context)
 
 
@@ -174,7 +183,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         post = Post.objects.get(pk=pk)
-        plant = Plant.objects.get(plant_name=post.intended_plant_name)
+        plant = Plant.objects.get(plant_name=post.plant_name)
         history = self.get_object().image_of_growth_stage()
         context['post'] = post
         context['plant'] = plant

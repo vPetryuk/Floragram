@@ -56,6 +56,19 @@ def process_image(img):
     return img
 
 
+
+def scientific_to_fine_percent(var,biggest):
+
+    x= 87/float(scientific_to_real(biggest))
+    print(x)
+    print(float("{:.25f}".format(float(var))))
+    return int((float("{:.25f}".format(float(var))))* x)
+
+
+
+def scientific_to_real(var):
+    return float("{:.25f}".format(float(var)))
+
 def predict(img):
     '''
     Predict name of plant by using CNN model
@@ -64,11 +77,23 @@ def predict(img):
     '''
     img = process_image(img)
     label = model.predict(img)
+    predictions =[]
 
-    #print(label)
-    final_1 = np.argmax(label, axis=1)[0]
-    #final_2 = np.argmax(label, axis=1)[1]
+    print(label)
 
-    #predictions = [[final_1], categories[final_2]]
+    for x in range(5):
+        final_1 = np.argmax(label, axis=1)[0]
+        print(final_1)
+        #label = np.delete(label, final_1, axis=1)
 
-    return categories[final_1]
+        print(categories[final_1])
+        print(scientific_to_real(label[0][final_1]))
+        sublist=[]
+        sublist.append(categories[final_1])
+        sublist.append(label[0][final_1])
+        predictions.append(sublist)
+        label[0, final_1] = 0
+
+
+
+    return predictions

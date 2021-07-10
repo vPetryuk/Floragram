@@ -87,6 +87,7 @@ THIRD_PARTY_APPS = [
     'materializecssform',
 
 
+
 ]
 
 LOCAL_APPS = [

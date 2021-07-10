@@ -5,15 +5,17 @@
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block inner %}
-<h1>{% trans "Sign Out" %}</h1>
+  <div style="width: 450px ; margin: 200px auto 0 auto;" >
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
 
-<form method="post" action="{% url 'account_logout' %}">
+<p><h1>{% trans 'Are you sure you want to sign out?' %}</h1></p>
+ </div>
+<form class="ui form"  style="width: 150px ; margin: 0 auto;" method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+  <button class="negative ui button huge" type="submit">{% trans 'Sign Out' %}</button>
 </form>
+
 {% endblock %}
