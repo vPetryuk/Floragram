@@ -23,6 +23,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path('profiles/', include('profiles.urls', namespace='profiles')),
     path('posts/', include('posts.urls', namespace='posts')),
+    path('chat/', include('chat.urls', namespace='chat')),
     path('', post_comment_create_and_list_view, name='main'),
     path('', include('favicon.urls')),
 
