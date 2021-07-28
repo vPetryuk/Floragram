@@ -1,7 +1,19 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--Custom css-->
+    <link rel="stylesheet" type="text/css" href={% static 'css/style.css' %}
+    <link rel="shortcut icon" type="image/ico" href="{% static 'images/favicon.ico' %}"/>
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <title>Floragram - </title>
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
   <script src="https://use.typekit.net/hoy3lrg.js"></script>
   <script>try {
@@ -20,6 +32,7 @@
   <link rel="stylesheet" href="{% static 'css/chat.css' %}"/>
 </head>
 <body>
+{% include 'pages/navbar.html' %}
 <div id="frame">
   <div id="sidepanel">
     <div id="profile">
@@ -86,7 +99,7 @@
   <div class="content">
     <div class="contact-profile">
       <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-      <p>{{ username }}</p>
+      <p>{{ username_f }}</p>
       <div class="social-media">
         <i class="fa fa-facebook" aria-hidden="true"></i>
         <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -95,14 +108,17 @@
     </div>
     <div class="messages">
       <ul id="chat-log">
-        {% comment %} <li class="sent">
+        {% for obj in messages %}
+
+         <li {%  if obj.author.username  ==  username_f %}
+           class="sent"
+              {% else %}  class="replies"
+                 {% endif %} >
             <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+            <p>{{ obj.content }}</p>
           </li>
-          <li class="replies">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <p>When you're backed against the wall, break the god damn thing down.</p>
-          </li> {% endcomment %}
+
+        {% endfor %}
       </ul>
     </div>
     <div class="message-input">
@@ -127,7 +143,7 @@
           '/ws/chat/' + roomName + '/');
 
   chatSocket.onopen = function (e) {
-    fetchMessages();
+    //fetchMessages();
   }
 
   chatSocket.onmessage = function (e) {
@@ -155,7 +171,7 @@
     var messageInputDom = document.getElementById('chat-message-input');
     var message = messageInputDom.value;
     chatSocket.send(JSON.stringify({
-
+      'room_name': roomName,
       'command': 'new_message',
       'message': message,
       'from': username
