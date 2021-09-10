@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -19,10 +20,11 @@ class Message(models.Model):
 
 
 class Discussion(models.Model):
+    image = models.ImageField(upload_to='discussion_image', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])],blank=True)
     Discussion_name = models.TextField()
     participants = models.ManyToManyField(
         User, related_name='chats', blank=True)
-    messages = models.ManyToManyField(Message, blank=True)
+    messages = models.ManyToManyField(Message, blank=True,)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

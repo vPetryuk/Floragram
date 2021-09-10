@@ -7,43 +7,48 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block inner %}
-  <div style="width: 400px; margin:0 auto;">
-  <h1>{% trans "Sign In" %}</h1>
+  <div style="width: 300px; margin:50px auto 0 auto;">
+    <h1 class="ui header centered">{% trans "Sign In" %}</h1>
 
-  {% get_providers as socialaccount_providers %}
+    {% get_providers as socialaccount_providers %}
 
-  {% if socialaccount_providers %}
-    <p>{% blocktrans with site.name as site_name %}Please sign in with one
-      of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-      for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-    <div class="socialaccount_ballot">
-
-      <ul class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-
-      <div class="login-or">{% trans 'or' %}</div>
-
-    </div>
-
-    {% include "socialaccount/snippets/login_extra.html" %}
+    {% if socialaccount_providers %}
 
 
 
-  {% endif %}
+      {% include "socialaccount/snippets/login_extra.html" %}
 
-  <form class="ui form login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form }}
-    {% if redirect_field_value %}
 
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+
     {% endif %}
-{#    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
-  <br> <br>
-    <button class=" ui button primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-  <a class=" ui button primaryAction btn btn-primary"   href="{{ signup_url }}">{% trans "Sign Up" %}</a>
-  </form>
-</div>
+
+    <form class="ui form login" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form }}
+      {% if redirect_field_value %}
+
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+      {#    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+      <br> <br>
+    <div class="ui grid centered" >
+      <button class="centered seven wide column ui button primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+      <a class="centered seven wide column ui button primaryAction btn btn-primary"   href="{% url 'account_signup'  %} ">{% trans "Sign Up" %}</a>
+      </div>
+    <br>
+    </form>
+   <div class="ui horizontal divider">
+    Or
+  </div>
+<div class="socialaccount_ballot" style="width: fit-content;">
+
+        <a class="ui red  button socialaccount_providers centered" style="width: 300px; height: 40px;" href="/accounts/google/login/?process=login&next=%2F" process="login">
+           <i class="google  icon"></i>
+
+          {% trans "Login with Google" %}
+
+        </a>
+
+      </div>
+  </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% url 'home-view' as path_to_home %}
 {% url 'posts:main-post-view' as path_to_posts %}
 {% url 'profiles:my-profile-view' as path_to_my_profile %}
+{% url 'chat:main-forum-view' as path_to_forum %}
 {% url 'posts:add-post-view' as path_to_add_post %}
 {% url 'profiles:my-invites-view' as path_to_my_invites %}
 {% url 'profiles:invite-profiles-view' as path_to_invites %}
@@ -9,7 +10,7 @@
 {% url 'profiles:my-friends-view' as path_to_all_my_friends %}
 
 <div class="ui inverted menu nav mb-7">
-  <div class="ui container">
+  <div class="ui container" style="width: 1200px">
     <a href="{{path_to_posts}}" class="{% if request.path == path_to_home %}active{% endif %} item">
       {% load static %}<img class="ui image mini centered " src={% static "images/Floragram_logoV2.png" %} alt="logo">
 
@@ -45,6 +46,9 @@
                 </div>
              </div>
         </div>
+           <a href="{{path_to_forum}}" class="item">
+                       <h3> Forum</h3>
+                </a>
           <a href="{{path_to_my_profile}}" class="item">
                        <h3> Florapedia</h3>
                 </a>
@@ -58,9 +62,9 @@
 
 
           <div class="item">
-              <form action="" method="GET">
+              <form  onsubmit="return executeQuery();">
                 <div class="ui action left icon input">
-                <input class="prompt" type="text" name='q' placeholder="name of a friend...">
+                <input class="prompt" type="text" id="search_q" name='q' placeholder="name of a friend...">
                 <i class="search icon"></i>
                 <button type='submit' class="ui button secondary">Search</button>
                 </div>
@@ -94,3 +98,12 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+    function executeQuery(){
+      var query = document.getElementById("search_q").value;
+      window.location.replace("{% url 'search' %}?q="+query);
+      return false
+    }
+
+</script>
+

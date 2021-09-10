@@ -94,13 +94,14 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    'allauth.socialaccount.providers.google',
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
     "semanticuiforms",
     'materializecssform',
-
+    'crispy_forms_semantic_ui',
 
 
 ]
@@ -233,7 +234,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = "semanticui"
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'semantic-ui')
 # FIXTURES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
@@ -345,3 +346,15 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+
+}

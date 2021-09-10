@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-all profiles
+search results
 {% endblock title %}
 
 {% block content %}
@@ -9,7 +9,7 @@ all profiles
     {% if is_empty %}
         <h1>No profiles to interact with</h1>
     {% endif %}
-    <div class="ui container centered " style="width: 550px;">
+      <div class="ui container centered " style="width: 550px;">
     {% for obj in object_list %}
         <div class="ui segment">
             <div class="ui grid">
@@ -48,5 +48,4 @@ all profiles
             </div>
         </div>
     {% endfor %}
-  </div>
 {% endblock content %}

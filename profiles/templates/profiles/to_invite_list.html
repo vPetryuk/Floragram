@@ -10,15 +10,16 @@ all profiles
         <h1>No profiles to interact with</h1>
     {% endif %}
 
+     <div class="ui container centered " style="width: 550px;">
     {% for obj in qs %}
         <div class="ui segment">
             <div class="ui grid">
                 <div class="row">
-                    <div class="three wide column">
+                    <div class="six wide column">
                         <img class="ui small circular image" src={{obj.avatar.url}}>
                     </div>
-                    <div class="thirteen wide column">
-                        <h3>{{obj.user}}</h3>
+                    <div class="ten wide column right floated">
+                        <h1>{{ obj.first_name }} {{ obj.last_name }}</h1>
                         <p>{{obj.bio}}</p>
                         <a href={{obj.get_absolute_url}}><button class="ui primary button mb-5 w-big">See profile</button></a>
                         <br>

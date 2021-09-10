@@ -26,7 +26,7 @@ def post_comment_create_and_list_view(request):
 
     '''
     qs = Post.objects.exclude(plant_name="Plant")
-    profile = Profile.objects.get(user=request.user)
+
 
     # initials
     p_form = PostModelForm()
@@ -140,6 +140,8 @@ def recognise_post_view(request):
     form = PostModelNameForm(request.POST or None, request.FILES or None, instance=post)
     print(post.image)
     predictions = predict(Image.open(post.image))
+    post.intended_plant_name=predictions[0][0]
+    post.save()
     confirm = False
 
     if request.method == 'POST':

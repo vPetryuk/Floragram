@@ -14,6 +14,9 @@ class PostModelNameForm(forms.ModelForm):
         model = Post
         fields = ('plant_name',)
 
+
+
+
 class CommentModelForm(forms.ModelForm):
     body = forms.CharField(label='',
                             widget=forms.TextInput(attrs={'placeholder': 'Add a comment...'}))

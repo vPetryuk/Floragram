@@ -207,3 +207,14 @@ def remove_from_friends(request):
         rel.delete()
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('profiles:my-profile-view')
+
+@login_required
+def profile_search_view(request):
+    context={}
+    if request.method == "GET":
+        search_query= request.GET.get("q")
+        if  len(search_query) > 0:
+            search_results = Profile.objects.filter(
+                Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query))
+    context['object_list']=search_results
+    return render(request,"profiles/search_results.html",context )
