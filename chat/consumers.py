@@ -28,7 +28,7 @@ class ChatConsumer(WebsocketConsumer):
             'command': 'new_message',
             'message': self.message_to_json(message)
         }
-        discussion = Discussion.objects.get(Discussion_name=data['room_name'])
+        discussion = Discussion.objects.get(slug=data['room_name'])
         discussion.messages.add(message)
         return self.send_chat_message(content)
 

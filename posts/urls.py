@@ -7,7 +7,7 @@ from .views import post_comment_create_and_list_view, like_unlike_post, PostDele
 app_name = 'posts'
 
 urlpatterns = [
-    path('', discussion_list_view, name='discussion-list-view'),
+    path('', post_comment_create_and_list_view, name='main-post-view'),
     path('liked/', like_unlike_post, name='like-post-view'),
     path('rec-confirm/', rec_confirm_post, name='rec-confirm-post-view'),
     path('<pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
