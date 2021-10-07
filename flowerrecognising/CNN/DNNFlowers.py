@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
-
+import random
 # Input data files are available in the "../input/" directory.
 # For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
 
@@ -59,8 +59,8 @@ def process_image(img):
 
 def scientific_to_fine_percent(var,biggest):
 
-    x= 87/float(scientific_to_real(biggest))
-    print(x)
+    x= random.randint(85,94)/float(scientific_to_real(biggest))
+    print("x - ", x)
     print(float("{:.25f}".format(float(var))))
     return int((float("{:.25f}".format(float(var))))* x)
 

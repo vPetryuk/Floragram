@@ -381,10 +381,10 @@ li.creativity .piesite > #slice > .pie {
   text-align: center;
   z-index: 2;
   text-transform: none;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease;
+  transition: all 5s ease-in-out;
 }
 .tooltip:hover > .tooltipContent {
   opacity: 1;
@@ -394,7 +394,7 @@ li.creativity .piesite > #slice > .pie {
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  transition: all 5s ease;
 }
 .tooltip .tooltipContent:after {
   border-color: #222222 rgba(0, 0, 0, 0);

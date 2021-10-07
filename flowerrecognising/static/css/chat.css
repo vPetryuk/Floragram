@@ -5,9 +5,12 @@
   margin: 0  !important;
   padding-top: 10px !important;
 }
-
+ui.container{
+   width: 1300px !important;
+  margin: 0 auto !important;
+}
 #frame {
-
+  width: 1300px !important;
   min-width: 360px;
   height: 885px;
   min-height: 300px;
@@ -26,10 +29,11 @@
   max-width: 340px;
   width: 40%;
   height: 100%;
-  background: #2c3e50;
+ background-color: #ce8108 !important;
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
+
 }
 @media screen and (max-width: 735px) {
   #frame #sidepanel {
@@ -39,7 +43,8 @@
 }
 #frame #sidepanel #profile {
   width: 80%;
-  margin: 25px auto;
+  margin: 7px auto;
+
 }
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile {
@@ -47,6 +52,7 @@
     margin: 0 auto;
     padding: 5px 0 0 0;
     background: #32465a;
+
   }
 }
 #frame #sidepanel #profile.expanded .wrap {
@@ -318,29 +324,22 @@
 }
 #frame #sidepanel #contacts {
   height: calc(100% - 177px);
-  overflow-y: scroll;
+border-top: 1px solid #a96c0a !important;
   overflow-x: hidden;
 }
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts {
     height: calc(100% - 149px);
-    overflow-y: scroll;
+
     overflow-x: hidden;
   }
-  #frame #sidepanel #contacts::-webkit-scrollbar {
-    display: none;
-  }
+
 }
 #frame #sidepanel #contacts.expanded {
   height: calc(100% - 334px);
 }
-#frame #sidepanel #contacts::-webkit-scrollbar {
-  width: 8px;
-  background: #2c3e50;
-}
-#frame #sidepanel #contacts::-webkit-scrollbar-thumb {
-  background-color: #243140;
-}
+
+
 #frame #sidepanel #contacts ul li.contact {
   position: relative;
   padding: 10px 0 15px 0;
@@ -440,11 +439,12 @@
   bottom: 0;
 }
 #frame #sidepanel #bottom-bar button {
+  height: 45px;
   float: left;
   border: none;
   width: 50%;
   padding: 10px 0;
-  background: #32465a;
+   background-color: black !important;
   color: #f5f5f5;
   cursor: pointer;
   font-size: 0.85em;
@@ -461,7 +461,7 @@
   outline: none;
 }
 #frame #sidepanel #bottom-bar button:nth-child(1) {
-  border-right: 1px solid #2c3e50;
+  border-right: 0px solid #2c3e50;
 }
 @media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button:nth-child(1) {
@@ -539,7 +539,7 @@
   height: auto;
   min-height: calc(100% - 93px);
   max-height: calc(100% - 93px);
-  overflow-y: scroll;
+
   overflow-x: hidden;
   width: 100%;
 }
@@ -548,13 +548,8 @@
     max-height: calc(100% - 105px);
   }
 }
-#frame .content .messages::-webkit-scrollbar {
-  width: 8px;
-  background: transparent;
-}
-#frame .content .messages::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-}
+
+
 #frame .content .messages ul li {
   display: inline-block;
   clear: both;
@@ -571,8 +566,8 @@
   float: right;
 }
 #frame .content .messages ul li.sent p {
-  background: #435f7a;
-  color: #f5f5f5;
+  background: black;
+  color: white;
   float: right;
 }
 #frame .content .messages ul li.replies img {
@@ -587,6 +582,8 @@
   width: 42px;
   border-radius: 50%;
   float: left;
+  height: 42px;
+  object-fit: cover;
 }
 #frame .content .messages ul li p {
   display: inline-block;
@@ -606,6 +603,7 @@
   bottom: 0;
   width: 100%;
   z-index: 99;
+  height: 45px;
 }
 #frame .content .message-input .wrap {
   position: relative;
@@ -652,8 +650,9 @@
   width: 50px;
   padding: 12px 0;
   cursor: pointer;
-  background: #32465a;
+  background: black;
   color: #f5f5f5;
+  height: 51px;
 }
 @media screen and (max-width: 735px) {
   #frame .content .message-input .wrap button {
