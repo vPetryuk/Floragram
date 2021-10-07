@@ -11,4 +11,4 @@ class DiscussionModelForm(forms.ModelForm):
     image =forms.ImageField(required=False)
     class Meta:
         model = Discussion
-        fields = ('Discussion_name',)
+        fields = ('Discussion_name','content','image')

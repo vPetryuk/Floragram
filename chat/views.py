@@ -18,12 +18,14 @@ def index(request):
     return render(request, 'chat/index.html', {})
 
 @login_required
-def room(request, slug):
+def room(request, slug ,):
     messages = last_50_messages(slug)
+    discussion = Discussion.objects.get(slug=slug)
     context={'messages': messages,
             'room_name_json': mark_safe(json.dumps(slug)),
             'username': mark_safe(json.dumps(request.user.username)),
-            'username_f': request.user.username,}
+            'username_f': request.user.username,
+             'discussion':discussion,}
 
 
     return render(request, 'chat/room.html', context)
@@ -58,7 +60,7 @@ class DiscussionDeleteView(LoginRequiredMixin, DeleteView):
     '''
     model = Discussion
     template_name = 'chat/confirm_delete.html'
-    success_url = reverse_lazy('chat:main-chat-view')
+    success_url = reverse_lazy('chat:main-forum-view')
 
 
 
@@ -78,7 +80,7 @@ class DiscussionUpdateView(LoginRequiredMixin, UpdateView):
     form_class = DiscussionModelForm
     model = Discussion
     template_name = 'chat/update.html'
-    success_url = reverse_lazy('chat:main-chat-view')
+    success_url = reverse_lazy('chat:main-forum-view')
 
     def form_valid(self, form):
         profile = Profile.objects.get(user=self.request.user)
