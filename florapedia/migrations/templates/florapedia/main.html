@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Florapedia
+{% endblock title %}
+
+{% block content %}
+
+  <div class="ui three column grid">
+  {% for obj in myposts %}
+    <div class="column">
+
+    <div class="ui fluid card ">
+      <a href="{% url 'posts:post-detail' obj.pk %}">
+        <div class="image ">
+          <img style="height: 350px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+
+        </div>
+      </a>
+      <div class="content">
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  {% endfor %}
+</div>
+</div>
+{% endblock content %}

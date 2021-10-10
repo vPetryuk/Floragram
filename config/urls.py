@@ -26,6 +26,7 @@ urlpatterns = [
     path('search/', profile_search_view, name='search'),
     path('posts/', include('posts.urls', namespace='posts')),
     path('chat/', include('chat.urls', namespace='chat')),
+    path('florapedia/', include('florapedia.urls', namespace='florapedia')),
     path('', post_comment_create_and_list_view, name='main'),
     path('', include('favicon.urls')),
 
