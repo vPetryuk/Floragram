@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+
 from .views import main_florapedia_view
 
 app_name= 'florapedia'

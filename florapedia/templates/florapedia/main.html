@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Florapedia
+{% endblock title %}
+
+{% block content %}
+  <div class="ui segment">
+    <div class="ui grid">
+      <div class="twelve wide column">
+        <div class="ui two column grid">
+          {% for obj in qs %}
+            <div class="column">
+
+
+              <div class="ui fluid card " >
+
+                <a href="{% url 'posts:post-detail' obj.pk %}" >
+                  <div class="image   ">
+                    <a class="ui huge orange ribbon label"  style="z-index: 999;">{{ obj.plant_name }} </a>
+                    <div class="img-hover-zoom">
+                      <img  style="height: 270px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+                    </div>
+                  </div>
+
+
+                </a>
+
+                {#              <div class="content" style="height: 100px; overflow: hidden; " >#}
+                {#                <div >{{ obj.article }}</div>#}
+                {#              </div>#}
+              </div>
+
+            </div>
+
+          {% endfor %}
+
+
+
+
+        </div>
+        <div class="four wide column"></div>
+      </div>
+      <div class="four wide column">
+        <div class="ui vertical following fluid accordion text menu">
+          <div class="item">
+            <div class="header">Houseplants</div>
+            <div class="menu">
+              <a class="item">Ampel plants</a>
+              <a class="item">Bonsai</a>
+              <a class="item">Bromeliads</a>
+              <a class="item">Ornamental-deciduous</a>
+              <a class="item">Trees and Shrubs</a>
+              <a class="item">Cacti</a>
+              <a class="item">Bulbous</a>
+              <a class="item">Orchids</a>
+              <a class="item">Palms</a>
+              <a class="item">Ferns</a>
+              <a class="item">Suculents</a>
+              <a class="item">Predatory</a>
+              <a class="item">Blooming</a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="header">Garden flower</div>
+            <div class="menu">
+              <a class="item">Roses</a>
+              <a class="item">Perennial</a>
+              <a class="item">Annual and biennial</a>
+              <a class="item">Bulbous</a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="header">Garden and vegetables</div>
+            <div class="menu">
+              <a class="item">Ornamental trees and bushes</a>
+              <a class="item">Fruit trees and bushes</a>
+              <a class="item">Berries</a>
+              <a class="item">Vegetables</a>
+              <a class="item">Spicy herbs and greens</a>
+              <a class="item">Cereals</a>
+
+            </div>
+          </div>
+          <div class="item">
+            <div class="header">Useful information</div>
+            <div class="menu">
+              <a class="item">Diseas and pets</a>
+              <a class="item">Medicinal plants</a>
+              <a class="item">Planting and transplanting</a>
+              <a class="item">Plant propagation</a>
+              <a class="item">Tips for beginners</a>
+              <a class="item">Fertilizers and stimulants</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
