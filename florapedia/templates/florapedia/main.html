@@ -6,33 +6,28 @@
 
 {% block content %}
   <div class="ui segment">
-    <h1 class="">Category :  Houseplants</h1>
+
 
     <div class="ui grid">
       <div class="twelve wide column">
         <div class="ui two column grid">
+          <div class="computer only row">
+            <div class="column"><h1 class="" >Category :  {{ qs.first.category }}</h1></div>
+          </div>
+
+
           {% for obj in qs %}
             <div class="column">
-
-
               <div class="ui fluid card " >
-
-                <a href="{% url 'posts:post-detail' obj.pk %}" >
+                <a href="{% url 'florapedia:plant-detail' obj.pk %}" >
                   <div class="image   ">
-                    <a class="ui huge orange ribbon label"  style="z-index: 999;">{{ obj.plant_name }} </a>
+                    <div class="ui huge orange ribbon label"  style="z-index: 999;">{{ obj.plant_name }} </div>
                     <div class="img-hover-zoom">
                       <img  style="height: 270px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
                     </div>
                   </div>
-
-
                 </a>
-
-                {#              <div class="content" style="height: 100px; overflow: hidden; " >#}
-                {#                <div >{{ obj.article }}</div>#}
-                {#              </div>#}
               </div>
-
             </div>
 
           {% endfor %}
@@ -47,151 +42,193 @@
         <div class="ui header large ">Categories</div>
         <div class="ui vertical following fluid accordion text menu">
           <div class="item">
-            <div class="ui header medium ">Houseplants</div>
+            <a class="ui header medium " href="{% url 'florapedia:plants-category-list' "Houseplants" %}">Houseplants</a>
             <div class="menu">
-              <a class="item">
+              <a class="item" href="{% url 'florapedia:plants-list' "Ampel plants" %}">
                 <div class="ui grid">
                   <div class="three wide column menu-icon" >
                     <img class="ui image" src={% static "images/menu_icons/1.png" %}></div>
                   <div class="thirteen wide column menu-text "> Ampel plants</div>
 
                 </div></a>
-              <a class="item">
+              <a class="item" href="{% url 'florapedia:plants-list' "Bonsai" %}">
                 <div class="ui grid">
                   <div class="three wide column menu-icon" >
                     <img class="ui image" src={% static "images/menu_icons/2.png" %}></div>
                   <div class="thirteen wide column menu-text ">   Bonsai</div>
                 </div></a>
-              <a class="item">
+              <a class="item" href="{% url 'florapedia:plants-list' "Bromeliads" %}">
                 <div class="ui grid">
                   <div class="three wide column menu-icon" >
                     <img class="ui image" src={% static "images/menu_icons/3.png" %}></div>
                   <div class="thirteen wide column menu-text ">Bromeliads</div></div></a>
 
-              <a class="item">
+              <a class="item"href="{% url 'florapedia:plants-list' "Ornamental-deciduous" %}">
                 <div class="ui grid">
                   <div class="three wide column menu-icon" >
                     <img class="ui image" src={% static "images/menu_icons/4.png" %}></div>
                   <div class="thirteen wide column menu-text ">Ornamental-deciduous</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/5.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Trees and Shrubs</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/6.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Cacti</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/7.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Bulbous</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/8.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Orchids</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/9.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Palms</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/10.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Ferns</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/11.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Suculents</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/12.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Predatory</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/13.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Blooming</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Trees and Shrubs" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/5.png" %}></div>
+                <div class="thirteen wide column menu-text ">Trees and Shrubs</div></div></a>
+              <a class="item" href="{% url 'florapedia:plants-list' "Cacti" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/6.png" %}></div>
+                <div class="thirteen wide column menu-text ">Cacti</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Bulbous" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/7.png" %}></div>
+                <div class="thirteen wide column menu-text ">Bulbous</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Orchids" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/8.png" %}></div>
+                <div class="thirteen wide column menu-text ">Orchids</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Palms" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/9.png" %}></div>
+                <div class="thirteen wide column menu-text ">Palms</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Ferns" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/10.png" %}></div>
+                <div class="thirteen wide column menu-text ">Ferns</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Suculents" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/12.png" %}></div>
+                <div class="thirteen wide column menu-text ">Suculents</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Predatory" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/13.png" %}></div>
+                <div class="thirteen wide column menu-text ">Predatory</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Blooming" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/14.png" %}></div>
+                <div class="thirteen wide column menu-text ">Blooming</div></div></a>
             </div>
           </div>
           <div class="item">
-            <div class="ui header medium">Garden flower</div>
+            <a class="ui header medium"href="{% url 'florapedia:plants-category-list' "Garden flower" %}">Garden flower</a>
             <div class="menu">
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/14.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Roses</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/15.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Perennial</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/16.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Annual and biennial</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/17.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Bulbous</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Roses" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/18.png" %}></div>
+                <div class="thirteen wide column menu-text ">Roses</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Perennial" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/15.png" %}></div>
+                <div class="thirteen wide column menu-text ">Perennial</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Annual and biennial" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/16.png" %}></div>
+                <div class="thirteen wide column menu-text ">Annual and biennial</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Bulbous" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/17.png" %}></div>
+                <div class="thirteen wide column menu-text ">Bulbous</div></div></a>
             </div>
           </div>
           <div class="item">
-            <div class="ui header medium">Garden and vegetables</div>
+            <a class="ui header medium"href="{% url 'florapedia:plants-category-list' "Garden and vegetables" %}">Garden and vegetables</a>
             <div class="menu">
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/18.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Ornamental trees and bushes</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/19.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Fruit trees and bushes</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/20.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Berries</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/21.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Vegetables</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/22.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Spicy herbs and greens</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/23.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Cereals</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Ornamental trees and bushes" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/18.png" %}></div>
+                <div class="thirteen wide column menu-text ">Ornamental trees and bushes</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Fruit trees and bushes" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/19.png" %}></div>
+                <div class="thirteen wide column menu-text ">Fruit trees and bushes</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Berries" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/20.png" %}></div>
+                <div class="thirteen wide column menu-text ">Berries</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Vegetables" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/21.png" %}></div>
+                <div class="thirteen wide column menu-text ">Vegetables</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Spicy herbs and greens" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/22.png" %}></div>
+                <div class="thirteen wide column menu-text ">Spicy herbs and greens</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Cereals" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/23.png" %}></div>
+                <div class="thirteen wide column menu-text ">Cereals</div></div></a>
 
             </div>
           </div>
           <div class="item">
-            <div class="ui header medium">Useful information</div>
+            <a class="ui header medium"href="{% url 'florapedia:plants-category-list' "Useful information" %}" >Useful information</a>
             <div class="menu">
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/24.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Diseas and pets</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/25.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Medicinal plants</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/26.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Planting and transplanting</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/27.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Plant propagation</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/28.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Tips for beginners</div></div></a>
-              <a class="item"><div class="ui grid">
-                  <div class="three wide column menu-icon" >
-                    <img class="ui image" src={% static "images/menu_icons/29.png" %}></div>
-                  <div class="thirteen wide column menu-text ">Fertilizers and stimulants</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Diseas and pets" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/24.png" %}></div>
+                <div class="thirteen wide column menu-text ">Diseas and pets</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Medicinal plants" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/25.png" %}></div>
+                <div class="thirteen wide column menu-text ">Medicinal plants</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Planting and transplanting" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/26.png" %}></div>
+                <div class="thirteen wide column menu-text ">Planting and transplanting</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Plant propagation" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/27.png" %}></div>
+                <div class="thirteen wide column menu-text ">Plant propagation</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Tips for beginners" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/28.png" %}></div>
+                <div class="thirteen wide column menu-text ">Tips for beginners</div></div></a>
+              <a class="item"href="{% url 'florapedia:plants-list' "Fertilizers and stimulants" %}"><div class="ui grid">
+                <div class="three wide column menu-icon" >
+                  <img class="ui image" src={% static "images/menu_icons/29.png" %}></div>
+                <div class="thirteen wide column menu-text ">Fertilizers and stimulants</div></div></a>
             </div>
           </div>
         </div>
+        <div class="ui header medium ">Popular Plants</div>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class=" ui centered medium image "style="object-fit: cover;" src={% static "images/popular_plants/Heather.jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Heather</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Cyclamen.jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Cyclamen</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Dracaena.jpg" %}></div>
+          <h3 class="ui center aligned header">Dracaena</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Kalanchoe.jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Kalanchoe</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Scheffler.jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Scheffler</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Spathiphyllum.jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Spathiphyllum</h3>
+        </a>
+        <a href="{% url 'florapedia:plant-detail' 12 %}" >
+          <div class="img-hover-zoom-smaller">
+            <img class="ui centered medium image" src={% static "images/popular_plants/Zamioculcas (Dollar tree).jpg" %}>
+          </div>
+          <h3 class="ui center aligned header">Zamioculcas (Dollar tree)</h3>
+        </a>
       </div>
     </div>
   </div>

@@ -425,6 +425,23 @@ li.creativity .piesite > #slice > .pie {
     display:inline-block !important;
   width: 60px;
 }
+/* [1] The container */
+.img-hover-zoom-smaller {
+  height: 130px; /* [1.1] Set it as per your need */
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom-smaller img {
+  transition: transform .5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom-smaller:hover img {
+  transform: scale(1.3);
+    display:inline-block !important;
+  width: 60px;
+}
 
 .menu-icon{
   padding: 0 0 0 1rem !important;
@@ -436,3 +453,8 @@ li.creativity .piesite > #slice > .pie {
 .ui.vertical.menu .menu .item {
   margin-top: 15px !important;
 }
+
+.ui.center.aligned.header{
+  margin-top: 5px !important;
+}
+
