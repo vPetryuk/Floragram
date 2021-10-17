@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
   my profile
 {% endblock title %}
@@ -39,7 +39,7 @@
     {% if confirm %}
       <div class="ui green message">Your profile has been updated</div>
     {% endif %}
-    <h3>My profile: {{ request.user }}</h3>
+    <h3>My profile: {{ request.user }} </h3>
     <div class="ui grid">
       <div class='row'>
         <div class='seven wide column'>
@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td>Last name</td>
-              <td>{{ profile.last_name }}</td>
+              <td>{{ profile.last_name }} </td>
             </tr>
             <tr>
               <td>Bio</td>
@@ -122,15 +122,31 @@
     </div>
     <div class="ui three column grid">
       {% for obj in myposts %}
+        <script>$('#{{obj.pk}}').progress('increment');</script>
+
         <div class="column">
 
-          <div class="ui fluid card ">
-            <a href="{% url 'posts:post-detail' obj.pk %}">
-              <div class="image ">
-                <img style="height: 350px;width: 100%; object-fit: cover;" src={{ obj.image.url }}>
+          <div class="ui fluid card " style="position: relative;top: 0; left: 0;">
+
+  <a href="{% url 'posts:post-detail' obj.pk %}">
+              <div class="image outer ">
+
+                <img style="height: 350px;width: 100%; object-fit: cover; position: relative;top: 0;left: 0;" src={{ obj.image.url }}>
+
+                 <form action="{% url 'profiles:watering-post-view' %}" method="POST"   class='watering-form absolute-form identclass{{obj.id}}' rd='{{obj.id}}'>
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value={{obj.id}}>
+                          <div class="ui labeled button" tabindex="0">
+                            <input type="image" id="watering-img"   class="watering-btn{{obj.id}}" src={% static "images/3.png" %} >
+
+                            </button>
+                          </div>
+
+                    </form>
 
               </div>
-            </a>
+ </a>
+
             <div class="content">
               <div class="ui three column pagged grid center aligned">
                 <div class="column">
@@ -155,16 +171,70 @@
       <i class="heart outline like icon"></i>
       {{ obj.num_likes }} &nbsp likes
     </span>
+
+              <span class="left floated">
               <i class="comment icon"></i>
-              {{ obj.num_comments }} &nbsp comments
+              {{ obj.num_comments }}  &nbsp comments
+                </span>
             </div>
-            <div class="ui bottom attached tinny red progress">
-              <div class="bar"></div>
+            <div class="ui bottom attached green  error progress watering-days{{ obj.id }}" data-value="{{obj.date_of_last_watering}}" data-total="{{ obj.plant.days_between_waterings }}"  id="progress{{ obj.pk }}">
+              <div class="bar">
+
+              </div>
+
             </div>
           </div>
-        </div>
 
+        </div>
+        <script>
+
+          $('#progress{{obj.pk}}')
+                  .progress({
+                    text: {
+                      {#active  : 'Adding {{ obj.date_of_last_watering}} of {{ obj.plant.days_between_waterings }} photos',#}
+                      {#success : '{{ obj.date_of_last_watering}} Photos Uploaded!'#}
+
+                    }
+                  });
+          var progress = $(`.watering-days{{ obj.id }}`)
+          console.log(progress.progress('get value'))
+          if(progress.progress('is complete')) {
+
+
+        $(`.watering-btn${$('.identclass{{obj.pk}}').attr('rd')}`).show();
+      }
+
+        </script>
       {% endfor %}
+    <script>
+      $( document ).ready(function() {
+            $('.watering-form').submit(function(e){
+                e.preventDefault()
+                const post_id = $(this).attr('rd')
+                const url = $(this).attr('action')
+                let res;
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id':post_id,
+                    },
+                    success: function(response) {
+                      $(`.watering-btn${post_id}`).fadeOut('fast');
+
+                      $(`#progress${post_id}`).progress({
+                      percent: 6
+                      });
+                    },
+                    error: function(response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
+        });
+    </script>
     </div>
 
   </div>

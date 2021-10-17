@@ -103,6 +103,7 @@ def rec_confirm_post(request):
         post_obj = Post.objects.get(id=post_id)
         profile = Profile.objects.get(user=user)
         post_obj.plant_name = post_obj.intended_plant_name
+        post_obj.plant = Plant.objects.get(plant_name=post_obj.plant_name)
         post_obj.save()
         return redirect('posts:post-detail', post_id)
 
@@ -116,6 +117,7 @@ def add_post_view(request):
     if request.method == 'POST':
         if form2.is_valid():
             form2.instance.author = profile
+
             form2.save()
             return redirect('posts:recognise-post-view')
 
@@ -146,6 +148,7 @@ def recognise_post_view(request):
 
     if request.method == 'POST':
         if form.is_valid():
+            form.instance.plant = Plant.objects.get(plant_name=form.instance.plant_name)
             form.save()
             confirm = True
             return redirect('posts:post-detail', form.instance.pk)

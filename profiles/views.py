@@ -1,3 +1,6 @@
+import datetime
+from datetime import date
+from django.utils.timezone import utc
 from django.shortcuts import render, redirect, get_object_or_404
 
 from posts.forms import PostModelForm
@@ -22,6 +25,11 @@ def my_profile_view(request):
     profile = Profile.objects.get(user=request.user)
     myposts = Post.objects.filter(author=profile)
     form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
+    now = datetime.datetime.utcnow().replace(tzinfo=utc)
+    for x in myposts:
+        var =(now-x.date_of_last_watering).days
+        if(var < 0):
+            x.date_of_last_watering = var+1
 
     confirm = False
 
@@ -41,6 +49,17 @@ def my_profile_view(request):
 
     return render(request, 'profiles/myprofile.html', context)
 
+
+@login_required
+def watering_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post_obj = Post.objects.get(id=post_id)
+        profile = Profile.objects.get(user=user)
+        post_obj.date_of_last_watering = date.today()
+        post_obj.save()
+    return redirect('profiles:my-profile-view')
 
 @login_required
 def invites_received_view(request):

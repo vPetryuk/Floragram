@@ -10,13 +10,14 @@ from .views import (
     remove_from_friends,
     accept_invatation,
     reject_invatation,
-    friends_list_view, profile_search_view,
+    friends_list_view, profile_search_view, watering_post,
 )
 
 app_name = 'profiles'
 
 urlpatterns = [
     path('', ProfileListView.as_view(), name='all-profiles-view'),
+    path('watered/', watering_post, name='watering-post-view'),
     path('myprofile/', my_profile_view, name='my-profile-view'),
     path('my-invites/', invites_received_view, name='my-invites-view'),
     path('to-invite/', invite_profiles_list_view, name='invite-profiles-view'),

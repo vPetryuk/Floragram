@@ -457,4 +457,34 @@ li.creativity .piesite > #slice > .pie {
 .ui.center.aligned.header{
   margin-top: 5px !important;
 }
+.outer{
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 350px;
 
+}
+#watering-img{
+   transform: rotate(-20deg);
+  position: absolute;
+  top:-20px;
+  left: -20px;
+  width: 120px;
+  height: 120px;
+  animation: mymove 2s infinite;
+  z-index: 10;
+  display: none;
+}
+.absolute-form{
+  height: 350px;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@keyframes mymove {
+  0% {transform: rotate(0deg);}
+  50% {transform: rotate(20deg);}
+  100% {transform: rotate(0deg);}
+}

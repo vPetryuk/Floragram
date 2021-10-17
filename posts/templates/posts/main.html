@@ -85,7 +85,7 @@
                     {% for c in obj.comment_set.all %}
 
                         <div class="ui segment mb-5">
-                            <img class="ui avatar image" src={{c.user.avatar.url}}>
+                            <img class="ui avatar image img-cover" src={{c.user.avatar.url}}>
                             <span>{{ c.user.first_name }} </span>  <span>{{ c.user.last_name }}</span>
                             <div class='mt-5'>{{ c.body }}</div>
                         </div>

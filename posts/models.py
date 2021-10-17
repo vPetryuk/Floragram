@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from profiles.models import Profile
+from florapedia.models import Plant
 
 
 # Create your models here.
@@ -24,6 +25,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    plant = models.ForeignKey(Plant, related_name='posts',blank=True,on_delete=models.SET_NULL,null=True)
     plant_name = models.TextField(default="Plant")
     intended_plant_name =models.TextField(blank=True)
     date_of_last_watering =models.DateTimeField(auto_now_add=True)
