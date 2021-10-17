@@ -1,5 +1,7 @@
 import datetime
 from datetime import date
+
+import numpy as np
 from django.utils.timezone import utc
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -27,9 +29,13 @@ def my_profile_view(request):
     form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
     for x in myposts:
+        print(x.date_of_last_watering)
         var =(now-x.date_of_last_watering).days
+        print((now-x.date_of_last_watering).days)
         if(var < 0):
-            x.date_of_last_watering = var+1
+            x.days_without_water = var  +1
+        else:
+            x.days_without_water = var+1
 
     confirm = False
 

@@ -177,7 +177,7 @@
               {{ obj.num_comments }}  &nbsp comments
                 </span>
             </div>
-            <div class="ui bottom attached green  error progress watering-days{{ obj.id }}" data-value="{{obj.date_of_last_watering}}" data-total="{{ obj.plant.days_between_waterings }}"  id="progress{{ obj.pk }}">
+            <div class="ui bottom attached green  error progress watering-days{{ obj.id }}" data-value="{{obj.days_without_water}}" data-total="{{ obj.plant.days_between_waterings }}"  id="progress{{ obj.pk }}">
               <div class="bar">
 
               </div>

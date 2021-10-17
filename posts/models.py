@@ -29,6 +29,7 @@ class Post(models.Model):
     plant_name = models.TextField(default="Plant")
     intended_plant_name =models.TextField(blank=True)
     date_of_last_watering =models.DateTimeField(auto_now_add=True)
+    days_without_water=models.IntegerField(blank=True,default=0)
     history = models.ManyToManyField(image_of_growth_stage, blank=True, related_name='history')
 
     objects = PostManager()
