@@ -11,14 +11,10 @@
   <div class="ui grid">
     <div class="centered eleven wide column">
       <div class="ui segment" >
-        <div class="ui left rail">
-          <div class="ui segment">
-            Left Rail Content
-          </div>
-        </div>
-        <div class="ui right rail massive ">
+
+        <div class="ui right rail tiny ">
           <a href="{{ path_to_add_discussion }}">
-          <button class="ui right labeled icon button massive basic">
+          <button class="ui right labeled icon button big basic">
   <i class="plus icon"></i>
   Add new discussion
 </button>
@@ -43,16 +39,16 @@
               <a href={{obj.author.get_absolute_url}}>
                 <img class="ui avatar image img-cover" src={{obj.author.avatar.url}}>
               </a>
-              {{ obj.author.user }} - {{ obj.timestamp|timesince}} ago
+              {{ obj.author.user }}<span style="color:gray;font-size:12px"> - {{ obj.timestamp|timesince}} ago </span>
             </div>
           <div class="content">
             <div class="ui grid">
 
-              <h2 class="four wide column left floated"> {{ obj.Discussion_name }} </h2>
+              <h2 class="twelve wide column left floated"> {{ obj.Discussion_name }} </h2>
               <div class="four wide column" > <a href="{% url 'chat:room' obj.slug %}"  class="ui button  right floated secondary" > Join </a></div>
 
             </div>
-              <h3><p> {{ obj.content }} </p></h3>
+              <h4><p> {{ obj.content }} </p></h4>
 
 
             </div>
@@ -65,8 +61,9 @@
             </div>
           </div>
 
-
+<br/>
         {% endfor %}
+
        </div>
     </div>
     {#    <div class="five wide column">#}

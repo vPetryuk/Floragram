@@ -5,7 +5,7 @@ from florapedia.models import Plant
 from flowerrecognising.CNN.DNNFlowers import predict, scientific_to_fine_percent, scientific_to_real
 from .models import Post, Like, image_of_growth_stage
 from profiles.models import Profile
-from .forms import PostModelForm, CommentModelForm, PostModelNameForm
+from .forms import PostModelForm, CommentModelForm, PostModelNameForm, PostHistoryModelForm
 from django.views.generic import UpdateView, DeleteView, DetailView
 from django.contrib import messages
 from django.http import JsonResponse
@@ -104,6 +104,9 @@ def rec_confirm_post(request):
         profile = Profile.objects.get(user=user)
         post_obj.plant_name = post_obj.intended_plant_name
         post_obj.plant = Plant.objects.get(plant_name=post_obj.plant_name)
+        h = image_of_growth_stage(plant_name=post_obj.plant_name, image=post_obj.image)
+        h.save()
+        post_obj.history.add(h)
         post_obj.save()
         return redirect('posts:post-detail', post_id)
 
@@ -149,6 +152,10 @@ def recognise_post_view(request):
     if request.method == 'POST':
         if form.is_valid():
             form.instance.plant = Plant.objects.get(plant_name=form.instance.plant_name)
+            h = image_of_growth_stage(plant_name=form.instance.plant_name, image=post.image)
+            h.save()
+            post.history.add(h)
+            post.save()
             form.save()
             confirm = True
             return redirect('posts:post-detail', form.instance.pk)
@@ -233,9 +240,23 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         profile = Profile.objects.get(user=self.request.user)
         if form.instance.author == profile:
+            return super().form_valid(form)
+        else:
+            form.add_error(None, "You need to be the author of the post in order to update it")
+            return super().form_invalid(form)
+
+
+class PostHistoryUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = PostHistoryModelForm
+    model = Post
+    template_name = 'posts/post_history_update.html'
+    success_url = reverse_lazy('profiles:my-profile-view')
+
+    def form_valid(self, form):
+        profile = Profile.objects.get(user=self.request.user)
+        if form.instance.author == profile:
             h = image_of_growth_stage(plant_name=form.instance.plant_name, image=form.instance.image)
             h.save()
-
             form.instance.history.add(h)
             return super().form_valid(form)
         else:

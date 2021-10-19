@@ -87,10 +87,12 @@
 
 
 
-    {% if   IsEmty %}
+
       <div class="ui divider"></div>
       <div class="ui header centered"> Stages of growth</div>
+
       <div class="ui three column grid">
+        {% if   IsEmty %}
       {% for obj in post.image_of_growth_stage %}
         <div class="column">
           <div class="ui fluid card ">
@@ -100,15 +102,16 @@
           </div>
         </div>
       {% endfor %}
+      {% endif %}
       <div class="column">
         <div class="ui fluid card ">
-          <a class="ui label massive" href="{% url 'posts:post-update' post.pk %}">
+          <a class="ui label massive" href="{% url 'posts:post-history-update' post.pk %}">
 
           <i class="add icon massive gray" style="height: 250px;width: 100%; margin-top: 70px" }></i>
           </a>
         </div>
       </div>
-    {% endif %}
+
     </div>
   </div>
 

@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
+
+from profiles.models import Profile
 from .models import Message, Discussion
 
 User = get_user_model()
@@ -17,20 +19,23 @@ class ChatConsumer(WebsocketConsumer):
         }
         self.send_message(content)
 
-    def new_message(self, data):
+    def new_message(self, data, ):
         author = data['from']
         author_user = User.objects.filter(username=author)[0]
+        author_profile = Profile.objects.get(user=author_user)
+        author_url =author_profile.avatar.url
         message = Message.objects.create(
 
             author=author_user,
             content=data['message'])
+
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
         }
         discussion = Discussion.objects.get(slug=data['room_name'])
         discussion.messages.add(message)
-        return self.send_chat_message(content)
+        return self.send_chat_message(content,author_url)
 
     def messages_to_json(self, messages):
         result = []
@@ -41,6 +46,7 @@ class ChatConsumer(WebsocketConsumer):
     def message_to_json(self, message):
         return {
             'author': message.author.username,
+            'avatar_url':message.author.profile.avatar.url,
             'content': message.content,
             'timestamp': str(message.timestamp)
         }
@@ -51,6 +57,7 @@ class ChatConsumer(WebsocketConsumer):
     }
 
     def connect(self):
+
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
         async_to_sync(self.channel_layer.group_add)(
@@ -69,12 +76,13 @@ class ChatConsumer(WebsocketConsumer):
         data = json.loads(text_data)
         self.commands[data['command']](self, data)
 
-    def send_chat_message(self, message):
+    def send_chat_message(self, message,avatar_url):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'message': message,
+                'avatar_url': avatar_url
             }
         )
 

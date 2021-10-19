@@ -21,6 +21,7 @@ def index(request):
 def room(request, slug ,):
     messages = last_50_messages(slug)
     discussion = Discussion.objects.get(slug=slug)
+    profile = Profile.objects.get(user=request.user)
     context={'messages': messages,
             'room_name_json': mark_safe(json.dumps(slug)),
             'username': mark_safe(json.dumps(request.user.username)),
@@ -130,14 +131,12 @@ def unique_slug_generator(instance, new_slug=None):
 def add_discussion_view(request):
     profile = Profile.objects.get(user=request.user)
     form = DiscussionModelForm(request.POST or None, request.FILES or None, )
-
-
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = profile
             form.instance.slug =unique_slug_generator(form.instance)
             form.save()
-            return redirect('chat:room', form.instance.Discussion_name)
+            return redirect('chat:room', form.instance.slug)
 
     context = {
         'profile': profile,

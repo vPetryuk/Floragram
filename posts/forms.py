@@ -8,6 +8,11 @@ class PostModelForm(forms.ModelForm):
         model = Post
         fields = ('image' ,'content' )
 
+class PostHistoryModelForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('image',)
+
 class PostModelNameForm(forms.ModelForm):
     plant_name = forms.CharField(widget=forms.Textarea(attrs={'rows': 1}))
     class Meta:

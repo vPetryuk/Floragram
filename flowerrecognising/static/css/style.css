@@ -488,3 +488,8 @@ li.creativity .piesite > #slice > .pie {
   50% {transform: rotate(20deg);}
   100% {transform: rotate(0deg);}
 }
+
+.avatar.image{
+  height: 40px !important;
+  width: 40px !important;
+}

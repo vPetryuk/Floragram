@@ -1,4 +1,4 @@
-$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+$(".messages").animate({ scrollDown: $(document).height() }, "fast");
 
 $("#profile-img").click(function() {
 	$("#status-options").toggleClass("active");

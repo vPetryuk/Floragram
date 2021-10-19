@@ -86,7 +86,7 @@
 <p style="font-size:32px">{{discussion.Discussion_name}}</p>
 
     </div>
-    <div class="messages">
+    <div class="messages" id="messages">
       <ul id="chat-log">
         {% for obj in messages %}
 
@@ -116,6 +116,7 @@
 <script src="{% static 'js/chat.js' %}"></script>
 <script src="{% static 'js/reconnecting-websocket.js' %}"></script>
 <script>
+
   var roomName = {{ room_name_json }};
   var username = {{ username }};
   var chatSocket = new ReconnectingWebSocket(
@@ -128,6 +129,7 @@
 
   chatSocket.onmessage = function (e) {
     var data = JSON.parse(e.data);
+    console.log(data);
     if (data['command'] === 'messages') {
       for (let i = 0; i < data['messages'].length; i++) {
         createMessage(data['messages'][i]);
@@ -166,11 +168,12 @@
 
   function createMessage(data) {
     var author = data['author'];
+
     var msgListTag = document.createElement('li');
     var imgTag = document.createElement('img');
     var pTag = document.createElement('p');
     pTag.textContent = data.content;
-    imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
+    imgTag.src = data['avatar_url'];
 
     if (author === username) {
       msgListTag.className = 'sent';
