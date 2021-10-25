@@ -1,3 +1,6 @@
+from sqlite3 import IntegrityError
+
+from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -97,6 +100,9 @@ def like_unlike_post(request):
 
 @login_required
 def rec_confirm_post(request):
+    '''
+    Recognise view if Floravisions guess was right
+    '''
     user = request.user
     if request.method == 'POST':
         post_id = request.POST.get('post_id')
@@ -139,6 +145,9 @@ def add_post_view(request):
 
 @login_required
 def recognise_post_view(request):
+    '''
+    Recognise view if Floravisions guess wasnt right
+    '''
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.filter(author=profile).latest('created')
     #plant = Plant.objects.get(plant_name=post.intended_plant_name)
@@ -151,13 +160,21 @@ def recognise_post_view(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            form.instance.plant = Plant.objects.get(plant_name=form.instance.plant_name)
-            h = image_of_growth_stage(plant_name=form.instance.plant_name, image=post.image)
-            h.save()
-            post.history.add(h)
-            post.save()
-            form.save()
-            confirm = True
+            try:
+                form.instance.plant , created = Plant.objects.get(plant_name=form.instance.plant_name)
+                if created:
+                    h = image_of_growth_stage(plant_name=form.instance.plant_name, image=post.image)
+                    h.save()
+                    post.history.add(h)
+                    post.save()
+                    form.save()
+                    confirm = True
+            except IntegrityError:
+                form.instance.plant
+            except MultipleObjectsReturned:
+                form.save()
+            except Exception as e:
+                form.save()
             return redirect('posts:post-detail', form.instance.pk)
 
 
@@ -195,7 +212,10 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         post = Post.objects.get(pk=pk)
-        plant = Plant.objects.get(plant_name=post.plant_name)
+        try:
+            plant = Plant.objects.get(plant_name=post.plant_name)
+        except:
+            plant = Plant.objects.get(pk=18)
         history = self.get_object().image_of_growth_stage()
         context['post'] = post
         context['plant'] = plant

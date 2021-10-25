@@ -26,7 +26,7 @@ delete post
               <br/>
               <h2>Are you sure you want to delete the post?</h2>
               <br/>
-              <a class="ui secondary button massive labeled icon " href="{% url 'posts:main-post-view' %}"><i class="left arrow icon"></i>Back</a>
+               <button type="button" class="ui secondary button massive labeled icon " onClick="javascript:history.go(-1);"><i class="left arrow icon"></i>Back</button>
                 <button class="ui button negative massive centered right labeled icon"   type='submit'><i class=" trash alternate icon"></i>Delete</button>
 
             </form>

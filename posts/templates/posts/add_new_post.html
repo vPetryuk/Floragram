@@ -5,9 +5,18 @@ add new post
 {% endblock title %}
 
 {% block content %}
-    <div class='ui segment'>
+  <div class="ui segment " style="width: 900px;margin: 0 auto;">
+
+    <div class="ui header">
+      <h1 class="ui aligned center  header massive">FloraVision</h1>
+      <div class="ui fitted divider"></div>
+    </div>
+
+    <div class="ui two column grid">
+      <div class="ten wide column">
+<div class='ui block'>
         <div class="header">
-      Add new plant
+          <h2> Add new plant</h2>
     </div>
     <div class="image content">
 
@@ -27,4 +36,17 @@ add new post
       </form>
     </div>
     </div>
+
+
+      </div>
+
+      <div class="six wide column">
+
+        {% load static %}<img class="ui medium image " src={% static "images/Floravision.png" %} alt="Floravision">
+        <div style="margin: 0 auto; " class="ui aligned center  header massive">  Let me guess name of your plant!</div>
+      </div>
+    </div>
+
+  </div>
+
 {% endblock content %}

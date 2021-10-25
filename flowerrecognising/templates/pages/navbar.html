@@ -13,7 +13,7 @@
 
 <div class="ui inverted menu nav mb-7">
   <div class="ui container" style="width: 1200px">
-    <a href="{{path_to_posts}}" class="{% if request.path == path_to_home %}active{% endif %} item">
+    <a href="{{path_to_posts}}" class="{% if request.path == path_to_posts %}active{% endif %} item">
       {% load static %}<img class="ui image mini centered " src={% static "images/Floragram_logoV2.png" %} alt="logo">
 
       <h2 style="margin:0px 0px 0px 10px">Floragram</h2>
@@ -48,16 +48,16 @@
             </div>
           </div>
         </div>
-        <a href="{{path_to_forum}}" class="item">
+        <a href="{{path_to_forum}}" class="{% if request.path == path_to_forum %}active{% endif %} item">
           <h3> Forum</h3>
         </a>
-        <a href="{{path_to_florapedia}}" class="item">
+        <a href="{{path_to_florapedia}}" class="{% if request.path == path_to_florapedia %}active{% endif %} item">
           <h3> Florapedia</h3>
         </a>
-        <a href="{{path_to_add_post}}" class="item">
+        <a href="{{path_to_add_post}}" class="{% if request.path == path_to_add_post %}active{% endif %} item">
           <h3> Add new Plant</h3>
         </a>
-        <a href="{{path_to_my_profile}}" class="item">
+        <a href="{{path_to_my_profile}}" class="{% if request.path == path_to_my_profile %}active{% endif %} item">
           <h3> My Plants</h3>
         </a>
         <div class="item">

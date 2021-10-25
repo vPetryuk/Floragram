@@ -1,11 +1,12 @@
 {% extends "account/base.html" %}
-
+from django.contrib.auth import authenticate, login
 {% load i18n %}
 
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block inner %}
+
   <div style="width: 400px; margin:0 auto;">
 <h1 class="ui header centered">{% trans "Sign Up" %}</h1>
 
@@ -14,6 +15,7 @@
 <form class="ui form signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form.as_p }}
+
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}

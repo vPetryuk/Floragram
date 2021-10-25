@@ -3,12 +3,17 @@
 {% block title %}
   recognise post
 {% endblock title %}
+{% block js %}
+
+   <script type="text/javascript" src={% static "js/main.js" %}></script>
+{% endblock js %}
 {% block css %}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css"
         integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous"/>
   <link rel="stylesheet" type="text/css" href={% static 'css/graphs.css' %}
   <script src="{% static 'js/graphs.js' %}"></script>
+   <script type="text/javascript" src={% static 'main.js' %}></script>
 {% endblock css %}
 {% block content %}
   <!-- MODAL -->
@@ -22,7 +27,9 @@
         <img src="{{ post.image.url }}">
       </div>
       <div>
-<div class="chartBarsWrap" style="padding-top: 50px">
+
+<div class="chartBarsWrap" style="padding-top: 0px">
+  <h1 >Matches with other plants:</h1>
     <div class="chartBars chartBars1">
         <ul class="numbers">
             <li><span>100%</span></li>

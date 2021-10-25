@@ -37,7 +37,7 @@
   color: #fff;
   padding-top: 18px;
   bottom: 0;
-  height: 0;
+  height: 0 !important;
   overflow: hidden;
   font-weight: bold;
   outline: 2px solid transparent;
@@ -149,7 +149,7 @@
   text-align: right;
   font-size: 1.5em;
   -webkit-transition: 2s width cubic-bezier(0.6, 0.4, 0.4, 1.1);
-  transition: 2s width cubic-bezier(0.6, 0.4, 0.4, 1.1);
+  transition: 1s width cubic-bezier(0.6, 0.4, 0.4, 1.1);
 }
 .chartBarsWrap.chartBarsHorizontal .chartBars .bars .bar:after {
   font-size: .6em !important;
@@ -320,6 +320,17 @@ li.creativity .piesite > #slice > .pie {
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+:hover > .tooltipContent {
+	 opacity: 1;
+	 filter: alpha(opacity=100);
+	 z-index: 99;
+	 transform: translate(-50%,-130%);
+	 -webkit-transition: all 0.2s ease;
+	 -moz-transition: all 0.2s ease;
+	 -o-transition: all 0.2s ease;
+	 transition: all 0.2s ease;
+}
+
 .tooltip .tooltipContent:after {
   border-color: #222222 rgba(0, 0, 0, 0);
   border-style: solid;

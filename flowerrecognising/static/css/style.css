@@ -384,7 +384,7 @@ li.creativity .piesite > #slice > .pie {
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease;
-  transition: all 5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .tooltip:hover > .tooltipContent {
   opacity: 1;
@@ -394,7 +394,7 @@ li.creativity .piesite > #slice > .pie {
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
-  transition: all 5s ease;
+  transition: all 0.3s ease;
 }
 .tooltip .tooltipContent:after {
   border-color: #222222 rgba(0, 0, 0, 0);
@@ -492,4 +492,7 @@ li.creativity .piesite > #slice > .pie {
 .avatar.image{
   height: 40px !important;
   width: 40px !important;
+}
+.ui.medium.image{
+  max-height: 400px !important;
 }

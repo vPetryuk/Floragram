@@ -28,7 +28,7 @@
              <a href={{obj.author.get_absolute_url}}>
                 <img class="ui avatar image img-cover" src={{obj.author.avatar.url}}>
              </a>
-                {{ obj.author.user }} - {{ obj.created|timesince}} ago
+                {{ obj.author.user }} <span style="color:gray;font-size:12px"> - {{ obj.created|timesince}} ago </span>
             </div>
             <div class="ui fluid image pd">
                 {% if obj.image %}
