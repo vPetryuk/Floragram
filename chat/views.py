@@ -131,11 +131,14 @@ def unique_slug_generator(instance, new_slug=None):
 def add_discussion_view(request):
     profile = Profile.objects.get(user=request.user)
     form = DiscussionModelForm(request.POST or None, request.FILES or None, )
+    print("test1")
     if request.method == 'POST':
+        print("test2")
         if form.is_valid():
             form.instance.author = profile
             form.instance.slug =unique_slug_generator(form.instance)
             form.save()
+            print("test3")
             return redirect('chat:room', form.instance.slug)
 
     context = {

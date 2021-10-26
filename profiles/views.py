@@ -5,6 +5,7 @@ import numpy as np
 from django.utils.timezone import utc
 from django.shortcuts import render, redirect, get_object_or_404
 
+from florapedia.models import Plant
 from posts.forms import PostModelForm
 from posts.models import Post
 from .models import Profile, Relationship
@@ -234,12 +235,19 @@ def remove_from_friends(request):
     return redirect('profiles:my-profile-view')
 
 @login_required
-def profile_search_view(request):
+def search_view(request):
     context={}
     if request.method == "GET":
         search_query= request.GET.get("q")
         if  len(search_query) > 0:
-            search_results = Profile.objects.filter(
+            search_results_profiles = Profile.objects.filter(
                 Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query))
-    context['object_list']=search_results
+            search_results_posts = Post.objects.filter(Q(plant_name__icontains=search_query))
+            search_results_plants = Plant.objects.filter(Q(plant_name__icontains=search_query))
+
+    context['profiles_list']=search_results_profiles
+    context['posts_list'] = search_results_posts
+    context['plants_list'] = search_results_plants
+
+
     return render(request,"profiles/search_results.html",context )

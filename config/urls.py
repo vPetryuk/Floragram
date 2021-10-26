@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, RedirectView
 from rest_framework.authtoken.views import obtain_auth_token
 
 from posts.views import post_comment_create_and_list_view
-from profiles.views import profile_search_view
+from profiles.views import  search_view
 
 urlpatterns = [
     #path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -23,7 +23,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path('profiles/', include('profiles.urls', namespace='profiles')),
-    path('search/', profile_search_view, name='search'),
+    path('search/', search_view, name='search'),
     path('posts/', include('posts.urls', namespace='posts')),
     path('chat/', include('chat.urls', namespace='chat')),
     path('florapedia/', include('florapedia.urls', namespace='florapedia')),

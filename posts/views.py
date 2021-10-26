@@ -161,19 +161,20 @@ def recognise_post_view(request):
     if request.method == 'POST':
         if form.is_valid():
             try:
-                form.instance.plant , created = Plant.objects.get(plant_name=form.instance.plant_name)
-                if created:
-                    h = image_of_growth_stage(plant_name=form.instance.plant_name, image=post.image)
-                    h.save()
-                    post.history.add(h)
-                    post.save()
-                    form.save()
-                    confirm = True
-            except IntegrityError:
-                form.instance.plant
-            except MultipleObjectsReturned:
+                form.instance.plant_name = form.instance.plant_name.capitalize();
+                form.instance.plant = Plant.objects.get(plant_name=form.instance.plant_name)
+                h = image_of_growth_stage(plant_name=form.instance.plant_name, image=post.image)
+                h.save()
+                post.history.add(h)
+                post.save()
                 form.save()
+                confirm = True
+            except IntegrityError:
+               raise
+            except MultipleObjectsReturned:
+                raise
             except Exception as e:
+                form.instance.plant = Plant.objects.get(pk=18)
                 form.save()
             return redirect('posts:post-detail', form.instance.pk)
 
@@ -212,10 +213,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         post = Post.objects.get(pk=pk)
-        try:
-            plant = Plant.objects.get(plant_name=post.plant_name)
-        except:
-            plant = Plant.objects.get(pk=18)
+        plant = Plant.objects.get(pk=post.plant.pk)
         history = self.get_object().image_of_growth_stage()
         context['post'] = post
         context['plant'] = plant

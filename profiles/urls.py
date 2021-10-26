@@ -10,7 +10,7 @@ from .views import (
     remove_from_friends,
     accept_invatation,
     reject_invatation,
-    friends_list_view, profile_search_view, watering_post,
+    friends_list_view,  watering_post,
 )
 
 app_name = 'profiles'

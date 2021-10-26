@@ -323,7 +323,7 @@ ui.container{
   color: #f5f5f5;
 }
 #frame #sidepanel #contacts {
-  height: calc(100% - 177px);
+  height: calc(100% - 125px);
 border-top: 1px solid #a96c0a !important;
   overflow-x: hidden;
 }

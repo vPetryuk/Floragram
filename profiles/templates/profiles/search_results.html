@@ -1,51 +1,115 @@
 {% extends 'base.html' %}
 
 {% block title %}
-search results
+  search results
 {% endblock title %}
 
 {% block content %}
 
-    {% if is_empty %}
-        <h1>No profiles to interact with</h1>
-    {% endif %}
-      <div class="ui container centered " style="width: 550px;">
-    {% for obj in object_list %}
-        <div class="ui segment">
-            <div class="ui grid">
-                <div class="row">
-                    <div class="six wide column">
-                        <img class="ui small circular image" src={{obj.avatar.url}}>
-                    </div>
-                    <div class="ten wide column right floated">
-                        <h1>{{ obj.first_name }} {{ obj.last_name }}</h1>
-                        <p>{{obj.bio}}</p>
-                        <a href={{obj.get_absolute_url}}><button class="ui primary button mb-5 w-big">See profile</button></a>
-                        <br>
+  {% if is_empty %}
+    <h1>No profiles to interact with</h1>
+  {% endif %}
+  <div class="ui container centered  " style="width: 550px;">
+    {% if profiles_list  %}
+      <div class="ui segment">
+        <h1 class="ui left aligned header">People</h1>
+        {% for obj in profiles_list %}
 
-                        {% if obj.user not in rel_receiver and obj.user not in rel_sender %}
-                            <form action="{% url 'profiles:send-invite' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="profile_pk" value={{obj.pk}}>
-                                <button type="submit" class="ui positive basic button mb-5 w-big"><i class="plus square icon"></i>Add to friends</button>
-                            </form>
-                         {% endif %}
+          <div class="ui grid">
+            <div class="row">
+              <div class="six wide column">
+                <a href={{obj.get_absolute_url}}>
+                  <img class="ui small circular image" src={{obj.avatar.url}}>
+                </a>
+              </div>
+              <div class="ten wide column right floated">
+                <h1>{{ obj.first_name }} {{ obj.last_name }}</h1>
+                <p>{{obj.bio}}</p>
+                <a href={{obj.get_absolute_url}}><button class="ui primary button mb-5 w-big">See profile</button></a>
+                <br>
 
-                        {% if obj.user in rel_receiver and request.user not in obj.friends.all %}
-                            <button class="ui disabled button mb-5 w-big"><i class="user icon"></i>Waiting for approval</button>
-                        {% endif %}
+                {% if obj.user not in rel_receiver and obj.user not in rel_sender %}
+                  <form action="{% url 'profiles:send-invite' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                    <button type="submit" class="ui positive basic button mb-5 w-big"><i class="plus square icon"></i>Add to friends</button>
+                  </form>
+                {% endif %}
 
-                        {% if request.user in obj.friends.all %}
-                        <form action="{% url 'profiles:remove-friend' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="profile_pk" value={{obj.pk}}>
-                            <button type="submit" class="ui negative basic button mb-5 w-big"><i class="minus square icon"></i>Remove from friends</button>
-                        </form>
-                        {% endif %}
-                    </div>
+                {% if obj.user in rel_receiver and request.user not in obj.friends.all %}
+                  <button class="ui disabled button mb-5 w-big"><i class="user icon"></i>Waiting for approval</button>
+                {% endif %}
 
-                </div>
+                {% if request.user in obj.friends.all %}
+                  <form action="{% url 'profiles:remove-friend' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                    <button type="submit" class="ui negative basic button mb-5 w-big"><i class="minus square icon"></i>Remove from friends</button>
+                  </form>
+                {% endif %}
+              </div>
             </div>
+          </div>
+
+
+        {% endfor %}
+
+      </div>
+    {% endif %}
+    {% if plants_list %}
+      <div class="ui segment">
+        <h1 class="ui left aligned header">Plants</h1>
+        {% for obj in plants_list %}
+          <div class="ui grid">
+            <div class="row">
+              <div class="six wide column">
+                <a href="{% url 'florapedia:plant-detail' obj.pk %}">
+                  <img class="ui small circular image" src={{obj.image.url}}>
+                </a>
+              </div>
+              <div class="ten wide column right floated">
+                <h1>{{ obj.plant_name }} </h1>
+                <p><h4>{{obj.category}}</h4></p>
+                <p><h4>{{obj.subcategory}}</h4></p>
+
+                <a href="{% url 'florapedia:plant-detail' obj.pk %}"><button class="ui primary button mb-5 w-big">See details</button></a>
+                <br>
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="ui container centered  " style="width: 1100px; margin-top: 15px;">
+  {% if posts_list %}
+    <div class="ui segment">
+    <h1 class="ui left aligned header">Posts</h1>
+    <div class="ui grid flex">
+      {% for obj in posts_list %}
+
+
+        <div class="five wide column">
+         <div class="ui fluid card " >
+          <a href="{% url 'florapedia:plant-detail' obj.pk %}">
+            <div class="image">
+              <div class="ui  orange ribbon label"  style="z-index: 999;">{{ obj.author.first_name }} {{ obj.author.last_name }} </div>
+              <div class="img-hover-zoom">
+                <img style="height: 300px;width: 100%; object-fit: cover;"  src={{obj.image.url}}>
+              </div>
+            </div>
+          </a>
+         </div>
         </div>
-    {% endfor %}
+
+      {% endfor %}
+    </div>
+  {% endif %}
+
 {% endblock content %}

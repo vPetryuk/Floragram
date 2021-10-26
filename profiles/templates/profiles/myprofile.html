@@ -173,11 +173,11 @@
     </span>
 
               <span class="left floated">
-              <i class="comment icon"></i>
+              <i class="comment outline icon"></i>
               {{ obj.num_comments }}  &nbsp comments
                 </span>
             </div>
-            <div class="ui bottom attached green  error progress watering-days{{ obj.id }}" data-value="{{4}}" data-total="{{ obj.plant.days_between_waterings }}"  id="progress{{ obj.pk }}">
+            <div class="ui bottom attached green  error progress watering-days{{ obj.id }}" data-value="{{obj.days_without_water}}" data-total="{{ obj.plant.days_between_waterings }}"  id="progress{{ obj.pk }}">
               <div class="bar">
 
               </div>
