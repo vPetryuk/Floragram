@@ -1,4 +1,4 @@
-
+{% load static %}
 {% url 'home-view' as path_to_home %}
 {% url 'posts:main-post-view' as path_to_posts %}
 {% url 'florapedia:main-florapedia-view' as path_to_florapedia %}
@@ -10,88 +10,49 @@
 {% url 'profiles:all-profiles-view' as path_to_all_profiles %}
 {% url 'profiles:my-friends-view' as path_to_all_my_friends %}
 {% url 'profiles:my-friends-view' as path_to_all_my_friends %}
-
-<div class="ui inverted menu nav mb-7">
-  <div class="ui container" style="width: 1200px">
-    <a href="{{path_to_posts}}" class="{% if request.path == path_to_posts %}active{% endif %} item">
-      {% load static %}<img class="ui image mini centered " src={% static "images/Floragram_logoV2.png" %} alt="logo">
-
-      <h2 style="margin:0px 0px 0px 10px">Floragram</h2>
-    </a>
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}"/>
+<nav class="navmenu">
+  <ol>
+    <li class="menu-item">
+      <a style="display: flex;" href="{{path_to_posts}}" >
+        {% load static %}<img  class="ui image mini centered " style="margin:7px;" src={% static "images/Floragram_logoV2.png" %} alt="logo">
+        <span style="margin:auto 0;">Floragram</span>
+      </a>
+    </li>
     {% if request.user.is_authenticated %}
+      <li class="menu-item"><a href="{{path_to_forum}}">Forum</a></li>
+      <li class="menu-item" ><a href="{{path_to_florapedia}}">Florapedia</a></li>
+      <li class="menu-item"><a href="{{path_to_my_profile}}">My plants</a></li>
+      <li class="menu-item">
+        <a href="{{path_to_all_profiles}}">People</a>
+        <ol class="sub-menu">
+          <li class="menu-item"><a href="{{path_to_all_profiles}}">All Users</a></li>
+          <li class="menu-item"><a href="{{path_to_all_my_friends}}">My friends</a></li>
+          <li class="menu-item"><a href="{{path_to_my_invites}}">Invites</a></li>
+        </ol>
+      </li>
+      <li class="menu-item">
+        <a href="#0"> <img class="ui avatar image grounded img-cover " src={{picture.url}}>&nbsp;
+          {{request.user}}</a>
+        <ol class="sub-menu">
+          <li class="menu-item"><a href="{{path_to_my_profile}}">My profile</a></li>
+          <li class="menu-item"><a href="{% url 'account_logout' %}">Logout</a></li>
+
+        </ol>
+      </li>
+      <li class="menu-item"><form  onsubmit="return executeQuery();">
+        <div class="ui action left icon input">
+          <input style="width: 160px;" class="prompt" type="text" id="search_q" name='q' placeholder="name of a friend...">
+
+          <button type='submit' class="ui icon button"><i class="search icon"></i></button>
+        </div>
+      </form></li>
+    {% else %}
+      <li class="menu-item"><a  href="{% url 'account_login' %}">Login</a></li>
 
     {% endif %}
-
-    <div class="right menu">
-
-
-
-
-      {% if request.user.is_authenticated %}
-        <div class="item">
-          <div class="ui floating dropdown icon button secondary"> Friends
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a href="{{path_to_all_profiles}}" class="{% if request.path == path_to_all_profiles %}active{% endif %} item">
-                All Profiles
-              </a>
-              <a href="{{path_to_all_my_friends}}" class="{% if request.path == path_to_all_my_friends %}active{% endif %} item">
-                My friends
-              </a>
-
-
-              <a href="{{path_to_my_invites}}" class="{% if request.path == path_to_my_invites %}active{% endif %} item">
-                Received Invites &nbsp; <div class="ui purple horizontal label">{{invites_num}}</div>
-              </a>
-
-            </div>
-          </div>
-        </div>
-        <a href="{{path_to_forum}}" class="{% if request.path == path_to_forum %}active{% endif %} item">
-          <h3> Forum</h3>
-        </a>
-        <a href="{{path_to_florapedia}}" class="{% if request.path == path_to_florapedia %}active{% endif %} item">
-          <h3> Florapedia</h3>
-        </a>
-        <a href="{{path_to_add_post}}" class="{% if request.path == path_to_add_post %}active{% endif %} item">
-          <h3> Add new Plant</h3>
-        </a>
-        <a href="{{path_to_my_profile}}" class="{% if request.path == path_to_my_profile %}active{% endif %} item">
-          <h3> My Plants</h3>
-        </a>
-        <div class="item">
-          <form  onsubmit="return executeQuery();">
-            <div class="ui action left icon input">
-              <input class="prompt" type="text" id="search_q" name='q' placeholder="name of a friend...">
-              <i class="search icon"></i>
-              <button type='submit' class="ui button secondary">Search</button>
-            </div>
-          </form>
-        </div>
-        <div class=" item ui floating dropdown">
-
-          <img class="ui avatar image grounded img-cover " src={{picture.url}}  >&nbsp;
-          <h3 style="margin:0px 0px 0px 10px">{{request.user}}</h3>
-          <div class="menu">
-            <a href="{{path_to_my_profile}}" class="{% if request.path == path_to_my_profile %}active{% endif %} item">
-              My Profile
-            </a>
-            <a href="{% url 'account_logout' %}" class="ui item">
-              Logout
-            </a>
-          </div>
-        </div>
-        </div>
-      {% else %}
-        <a href="{% url 'account_login' %}" class="ui item">
-          Login
-        </a>
-      {% endif %}
-
-  </div>
-</div>
-</div>
+  </ol>
+</nav>
 <script type="text/javascript">
   function executeQuery(){
     var query = document.getElementById("search_q").value;
@@ -100,3 +61,94 @@
   }
 
 </script>
+{##}
+{#<div class="ui inverted menu nav mb-7">#}
+{#  <div class="ui container" style="width: 1200px">#}
+{#    <a href="{{path_to_posts}}" class="{% if request.path == path_to_posts %}active{% endif %} item">#}
+{#      {% load static %}<img class="ui image mini centered " src={% static "images/Floragram_logoV2.png" %} alt="logo">#}
+{##}
+{#      <h2 style="margin:0px 0px 0px 10px">Floragram</h2>#}
+{#    </a>#}
+{##}
+{#    {% if request.user.is_authenticated %}#}
+{##}
+{#    {% endif %}#}
+{##}
+{#    <div class="right menu">#}
+{##}
+{##}
+{##}
+{##}
+{#      {% if request.user.is_authenticated %}#}
+{#        <div class="item">#}
+{#          <div class="ui floating dropdown icon button secondary"> Friends#}
+{#            <i class="dropdown icon"></i>#}
+{#            <div class="menu">#}
+{#              <a href="{{path_to_all_profiles}}" class="{% if request.path == path_to_all_profiles %}active{% endif %} item">#}
+{#                All Profiles#}
+{#              </a>#}
+{#              <a href="{{path_to_all_my_friends}}" class="{% if request.path == path_to_all_my_friends %}active{% endif %} item">#}
+{#                My friends#}
+{#              </a>#}
+{##}
+{##}
+{#              <a href="{{path_to_my_invites}}" class="{% if request.path == path_to_my_invites %}active{% endif %} item">#}
+{#                Received Invites &nbsp; <div class="ui purple horizontal label">{{invites_num}}</div>#}
+{#              </a>#}
+{##}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#        <a href="{{path_to_forum}}" class="{% if request.path == path_to_forum %}active{% endif %} item">#}
+{#          <h3> Forum</h3>#}
+{#        </a>#}
+{#        <a href="{{path_to_florapedia}}" class="{% if request.path == path_to_florapedia %}active{% endif %} item">#}
+{#          <h3> Florapedia</h3>#}
+{#        </a>#}
+{#        <a href="{{path_to_add_post}}" class="{% if request.path == path_to_add_post %}active{% endif %} item">#}
+{#          <h3> Add new Plant</h3>#}
+{#        </a>#}
+{#        <a href="{{path_to_my_profile}}" class="{% if request.path == path_to_my_profile %}active{% endif %} item">#}
+{#          <h3> My Plants</h3>#}
+{#        </a>#}
+{#        <div class="item">#}
+{#          <form  onsubmit="return executeQuery();">#}
+{#            <div class="ui action left icon input">#}
+{#              <input class="prompt" type="text" id="search_q" name='q' placeholder="name of a friend...">#}
+{#              <i class="search icon"></i>#}
+{#              <button type='submit' class="ui button secondary">Search</button>#}
+{#            </div>#}
+{#          </form>#}
+{#        </div>#}
+{#        <div class=" item ui floating dropdown">#}
+{##}
+{#          <img class="ui avatar image grounded img-cover " src={{picture.url}}  >&nbsp;#}
+{#          <h3 style="margin:0px 0px 0px 10px">{{request.user}}</h3>#}
+{#          <div class="menu">#}
+{#            <a href="{{path_to_my_profile}}" class="{% if request.path == path_to_my_profile %}active{% endif %} item">#}
+{#              My Profile#}
+{#            </a>#}
+{#            <a href="{% url 'account_logout' %}" class="ui item">#}
+{#              Logout#}
+{#            </a>#}
+{#          </div>#}
+{#        </div>#}
+{#        </div>#}
+{#      {% else %}#}
+{#        <a href="{% url 'account_login' %}" class="ui item">#}
+{#          Login#}
+{#        </a>#}
+{#      {% endif %}#}
+{##}
+{#  </div>#}
+{#</div>#}
+{#</div>#}
+{#<script type="text/javascript">#}
+{#  function executeQuery(){#}
+{#    var query = document.getElementById("search_q").value;#}
+{#    window.location.replace("{% url 'search' %}?q="+query);#}
+{#    return false#}
+{#  }#}
+{##}
+{#</script>#}
+

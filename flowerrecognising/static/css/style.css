@@ -1,5 +1,6 @@
 body {
     background: #F8F8F8 !important;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 .nav {
@@ -495,4 +496,16 @@ li.creativity .piesite > #slice > .pie {
 }
 .ui.medium.image{
   max-height: 400px !important;
+}
+.not-visible {
+    display: none;
+}
+#Plant3DObj{
+  top:200px;
+  position: absolute;
+
+  z-index: 999;
+}
+.ui.menu {
+  margin: 0 0 1rem 0 !important;
 }

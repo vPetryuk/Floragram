@@ -12,24 +12,30 @@
     <div class="header">
       Update your Profile
     </div>
-    <div class="image content">
-      <div class="ui medium image">
+    <div class="image content"  >
+      <div class="ui medium image "id="image-box" >
         <img src="{{ profile.avatar.url }}">
       </div>
       <div class="description">
         <div class="ui header">Provide some additional/newest info about you</div>
-        <form action="{% url "profiles:my-profile-view" %}" method="POST" class="ui form" enctype='multipart/form-data'>
+        <form action="{% url "profiles:my-profile-view" %}" method="POST" id="image-form" class="ui form" enctype='multipart/form-data'>
           {% csrf_token %}
           {{ form.as_p }}
+          <div id="alert-box"></div>
+        </form>
+        <button   class="ui positive right labeled icon button" id="confirm-btn" > Confirm </button>
       </div>
+
     </div>
     <div class="actions">
-      <button type='submit' class="ui positive right labeled icon button">
-        Update
-        <i class="checkmark icon"></i>
-      </button>
+      {#      <button type='submit' name="main_form" class="ui positive right labeled icon button"  >#}
+      {#        Update#}
+      {#        <i class="checkmark icon"></i>#}
+      {#      </button>#}
       </form>
+
     </div>
+
   </div>
 
 
@@ -43,7 +49,7 @@
     <div class="ui grid">
       <div class='row'>
         <div class='seven wide column'>
-          <img style="max-height: 300px ; width: auto" class="ui medium rounded image " src={{ profile.avatar.url }}>
+          <img style="height: 300px ; width: auto" id="profile_avatar" class="ui medium rounded image " src={{ profile.avatar.url }}>
           <div class="column">
             <div class="ui three column grid">
               <div class="column mt-5">
@@ -128,24 +134,24 @@
 
           <div class="ui fluid card " style="position: relative;top: 0; left: 0;">
 
-  <a href="{% url 'posts:post-detail' obj.pk %}">
+            <a href="{% url 'posts:post-detail' obj.pk %}">
               <div class="image outer ">
 
                 <img style="height: 350px;width: 100%; object-fit: cover; position: relative;top: 0;left: 0;" src={{ obj.image.url }}>
 
-                 <form action="{% url 'profiles:watering-post-view' %}" method="POST"   class='watering-form absolute-form identclass{{obj.id}}' rd='{{obj.id}}'>
-                        {% csrf_token %}
-                        <input type="hidden" name="post_id" value={{obj.id}}>
-                          <div class="ui labeled button" tabindex="0">
-                            <input type="image" id="watering-img"   class="watering-btn{{obj.id}}" src={% static "images/3.png" %} >
+                <form action="{% url 'profiles:watering-post-view' %}" method="POST"   class='watering-form absolute-form identclass{{obj.id}}' rd='{{obj.id}}'>
+                  {% csrf_token %}
+                  <input type="hidden" name="post_id" value={{obj.id}}>
+                  <div class="ui labeled button" tabindex="0">
+                    <input type="image" id="watering-img"   class="watering-btn{{obj.id}}" src={% static "images/3.png" %} >
 
-                            </button>
-                          </div>
+                    </button>
+                  </div>
 
-                    </form>
+                </form>
 
               </div>
- </a>
+            </a>
 
             <div class="content">
               <div class="ui three column pagged grid center aligned">
@@ -201,43 +207,49 @@
           if(progress.progress('is complete')) {
 
 
-        $(`.watering-btn${$('.identclass{{obj.pk}}').attr('rd')}`).show();
-      }
+            $(`.watering-btn${$('.identclass{{obj.pk}}').attr('rd')}`).show();
+          }
 
         </script>
       {% endfor %}
-    <script>
-      $( document ).ready(function() {
-            $('.watering-form').submit(function(e){
-                e.preventDefault()
-                const post_id = $(this).attr('rd')
-                const url = $(this).attr('action')
-                let res;
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                        'post_id':post_id,
-                    },
-                    success: function(response) {
-                      $(`.watering-btn${post_id}`).fadeOut('fast');
-
-                      $(`#progress${post_id}`).progress({
-                      percent: 6
-                      });
-                    },
-                    error: function(response) {
-                        console.log('error', response)
-                    }
-                })
-
-            })
-        });
-    </script>
     </div>
 
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css">
+  <script type="text/javascript" src={% static 'js/crop.js' %}></script>
+  <script>
+
+    $( document ).ready(function() {
+      $('.watering-form').submit(function(e){
+        e.preventDefault()
+        const post_id = $(this).attr('rd')
+        const url = $(this).attr('action')
+        let res;
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: {
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'post_id':post_id,
+          },
+          success: function(response) {
+            $(`.watering-btn${post_id}`).fadeOut('fast');
+
+            $(`#progress${post_id}`).progress({
+              percent: 6
+            });
+          },
+          error: function(response) {
+            console.log('error', response)
+          }
+        })
+
+      })
+    });
+  </script>
+
+
 
 
 

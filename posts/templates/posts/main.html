@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static%}
 {% block title %}
 
   main page
@@ -177,4 +177,9 @@
             })
         });
     </script>
+{#  3d #}
+<script src="{% static 'js/three.min.js' %}"></script>
+  <script src="{% static 'js/GLTFLoader.js' %}"></script>
+<script src="{% static 'js/3dscene.js' %}"></script>
+
 {% endblock scripts %}

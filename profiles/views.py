@@ -2,6 +2,7 @@ import datetime
 from datetime import date
 
 import numpy as np
+from django.http import JsonResponse
 from django.utils.timezone import utc
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -9,7 +10,7 @@ from florapedia.models import Plant
 from posts.forms import PostModelForm
 from posts.models import Post
 from .models import Profile, Relationship
-from .forms import ProfileModelForm
+from .forms import ProfileModelForm, customForm
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import get_user_model
 
@@ -28,31 +29,32 @@ def my_profile_view(request):
     profile = Profile.objects.get(user=request.user)
     myposts = Post.objects.filter(author=profile)
     form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
+    form2 = customForm(request.POST or None, request.FILES or None , instance=profile)
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
     for x in myposts:
-        print(x.date_of_last_watering)
         var =(now-x.date_of_last_watering).days
-        print((now-x.date_of_last_watering).days)
         if(var < 0):
             x.days_without_water = var  +1
         else:
             x.days_without_water = var+1
 
     confirm = False
-
-    if request.method == 'POST':
-        if form.is_valid():
-            print("chek3")
-            print(form)
-            form.save()
-            confirm = True
-
     context = {
         'myposts': myposts,
         'profile': profile,
         'form': form,
+        'form2': form2,
         'confirm': confirm,
     }
+
+    if request.method == 'POST':
+        print("t12")
+        if form.is_valid():
+            print("chek32")
+            print(form)
+            form.save()
+            profile.save()
+            confirm = True
 
     return render(request, 'profiles/myprofile.html', context)
 
