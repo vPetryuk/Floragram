@@ -62,11 +62,13 @@ def my_profile_view(request):
 @login_required
 def watering_post(request):
     user = request.user
+
     if request.method == 'POST':
+        print("wateringdjango")
         post_id = request.POST.get('post_id')
         post_obj = Post.objects.get(id=post_id)
         profile = Profile.objects.get(user=user)
-        post_obj.date_of_last_watering = date.today()
+        post_obj.date_of_last_watering = date.today() - datetime.timedelta(days=1)
         post_obj.save()
     return redirect('profiles:my-profile-view')
 

@@ -466,7 +466,8 @@ li.creativity .piesite > #slice > .pie {
 
 }
 #watering-img{
-   transform: rotate(-20deg);
+
+  transform: rotate(-20deg);
   position: absolute;
   top:-20px;
   left: -20px;
@@ -475,6 +476,11 @@ li.creativity .piesite > #slice > .pie {
   animation: mymove 2s infinite;
   z-index: 10;
   display: none;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+#watering-img.fade{
+  opacity:0;
 }
 .absolute-form{
   height: 350px;

@@ -12,7 +12,6 @@ const bio = document.getElementById('id_bio')
 
 input.addEventListener('change', ()=>{
     alertBox.innerHTML = ""
-
     const img_data = input.files[0]
     const url = URL.createObjectURL(img_data)
 
@@ -33,24 +32,27 @@ input.addEventListener('change', ()=>{
         }
     });
 
+
+
     var cropper = $image.data('cropper');
     confirmBtn.addEventListener('click', ()=>{
+        console.log('buttonclick');
         cropper.getCroppedCanvas().toBlob((blob) => {
             console.log('confirmed')
             const fd = new FormData();
             fd.append('csrfmiddlewaretoken', csrf[0].value)
             fd.append('avatar', blob, 'my-image.png');
-            fd.append('first_name',first_name.innerText)
-            fd.append('last_name',last_name.innerText)
-            fd.append('bio',bio.innerText)
-
+            fd.append('first_name',first_name.value)
+            fd.append('last_name',last_name.value)
+            fd.append('bio',bio.value)
+            console.log(fd);
             $.ajax({
                 type:'POST',
                 url: imageForm.action,
                 enctype: 'multipart/form-data',
                 data: fd,
                 success: function(response){
-                     location.reload();
+                    location.reload();
                     console.log('success', response)
                     alertBox.innerHTML = `<div class="alert alert-success" role="alert">
                                             Successfully saved and cropped the selected image
@@ -68,4 +70,37 @@ input.addEventListener('change', ()=>{
             })
         })
     })
+
 })
+
+ confirmBtn.addEventListener('click', ()=>{
+        console.log('buttonclick2');
+        const fd = new FormData();
+        fd.append('csrfmiddlewaretoken', csrf[0].value)
+        fd.append('first_name',first_name.value)
+        fd.append('last_name',last_name.value)
+        fd.append('bio',bio.value)
+        console.log(fd);
+        $.ajax({
+            type:'POST',
+            url: imageForm.action,
+            enctype: 'multipart/form-data',
+            data: fd,
+            success: function(response){
+                location.reload();
+                console.log('success', response)
+                alertBox.innerHTML = `<div class="alert alert-success" role="alert">
+                                            Successfully saved and cropped the selected image
+                                        </div>`
+            },
+            error: function(error){
+                console.log('error', error)
+                alertBox.innerHTML = `<div class="alert alert-danger" role="alert">
+                                            Ups...something went wrong
+                                        </div>`
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+    })

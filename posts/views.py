@@ -233,7 +233,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     '''
     model = Post
     template_name = 'posts/confirm_delete.html'
-    success_url = reverse_lazy('posts:main-post-view')
+    success_url = reverse_lazy('profiles:my-profile-view')
 
     # success_url = '/posts/'
 
