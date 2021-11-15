@@ -78,7 +78,6 @@ def predict(img):
     img = process_image(img)
     label = model.predict(img)
     predictions =[]
-
     print(label)
 
     for x in range(5):

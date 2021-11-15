@@ -501,11 +501,18 @@ li.creativity .piesite > #slice > .pie {
     display: none;
 }
 #Plant3DObj{
-  top:200px;
+
   position: absolute;
 
-  z-index: 999;
+
+  z-index: -1;
 }
 .ui.menu {
   margin: 0 0 1rem 0 !important;
+}
+#id_remember{
+  margin-top: 3px;
+}
+label #id_remember{
+margin-top: 5px;
 }

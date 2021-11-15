@@ -1,11 +1,14 @@
 .navmenu {
-	 background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+	 background-image: linear-gradient(to right, #26A560 0%,#ed6ea0  100%);
 	 border-end-end-radius: 0.5rem;
 	 text-transform: uppercase;
 	 box-shadow: inset 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.15);
+
 }
+
 ol{
   margin-top: 0px;
+   list-style-type: none !important;
 }
  .navmenu a {
 	 color: #fff;
@@ -84,10 +87,10 @@ ol{
 		 right: 150%;
 	}
 	 .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):hover > ol a, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):hover > ol a, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus > ol a, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus > ol a, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus-within > ol a, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus-within > ol a {
-		 box-shadow: inset 0 0 0 3rem rgba(0, 0, 0, 0), inset 0 0 0 3rem rgba(237, 110, 160, 0.5);
+		 box-shadow: inset 0 0 0 3rem rgba(0, 0, 0, 0), inset 0 0 0 3rem rgba(255, 255, 255, 0.5);
 	}
 	 .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):hover > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):hover > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus-within > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus-within > ol a:hover, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):hover > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):hover > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus-within > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus-within > ol a:focus, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):hover > ol a:focus-within, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):hover > ol a:focus-within, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus > ol a:focus-within, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus > ol a:focus-within, .navmenu > ol > li:first-child:nth-last-child( 2):nth-child( 1):focus-within > ol a:focus-within, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:nth-child( 1):focus-within > ol a:focus-within {
-		 box-shadow: inset 0 0 0 3rem rgba(0, 0, 0, 0.1), inset 0 0 0 3rem rgba(237, 110, 160, 0.5);
+		 box-shadow: inset 0 0 0 3rem rgba(0, 0, 0, 0.1), inset 0 0 0 3rem rgba(255, 255, 255, 0.5);
 	}
 	 .navmenu > ol > li:first-child:nth-last-child( 2):last-child:hover:after, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:last-child:hover:after, .navmenu > ol > li:first-child:nth-last-child( 2):last-child:focus:after, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:last-child:focus:after, .navmenu > ol > li:first-child:nth-last-child( 2):last-child:focus-within:after, .navmenu > ol > li:first-child:nth-last-child( 2) ~ li:last-child:focus-within:after {
 		 right: 50%;
@@ -756,8 +759,9 @@ ol{
 	 .navmenu > ol > li > ol {
 		 position: absolute;
 		 top: 100%;
-		 left: 0;
+		 left: -20px;
 		 width: 100%;
+     z-index: 10;
 		 visibility: hidden;
 	}
 	 .navmenu > ol > li > ol > li {
@@ -771,7 +775,7 @@ ol{
 		 border-radius: 0.2rem;
 		 padding: 1rem 0.5rem;
 		 font-size: 1.4vw;
-		 background: #ec8c69;
+		 background: #B47E8E;
 		 color: rgba(255, 255, 255, 0.6);
 		 transition: 250ms ease all;
 	}
@@ -827,7 +831,7 @@ ol{
 }
  @media (max-width: 45rem) {
 	 .navmenu {
-		 background-image: linear-gradient(to bottom, #ed6ea0 0%, #ec8c69 100%);
+		 background-image: linear-gradient(to bottom, #ed6ea0 0%, #B47E8E 100%);
 	}
 	 .navmenu a {
 		 font-size: 1.4rem;

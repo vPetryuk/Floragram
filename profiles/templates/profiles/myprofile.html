@@ -48,24 +48,28 @@
     <h3>My profile: {{ request.user }} </h3>
     <div class="ui grid">
       <div class='row'>
-        <div class='seven wide column'>
+        <div class='five wide column'>
           <img style="height: 300px ; width: auto" id="profile_avatar" class="ui medium rounded image " src={{ profile.avatar.url }}>
-          <div class="column">
-            <div class="ui three column grid">
-              <div class="column mt-5">
-                <button class='ui secondary button' id='modal-btn'>Update your profile</button>
+          <div class="column" style="margin-right: 42px">
+            <div class="ui two column grid" style="margin:0; ">
+              <div class="column " style="padding: 5px 5px 5px 5px;">
+                <button style="background-color: #28bc44; " class='ui secondary button labeled icon' id='modal-btn'>
+                   <i class="edit icon"></i>
+                  Update profile</button>
               </div>
-              <div class=" column mt-5">
+              <div class=" column " style="padding: 5px 5px 5px 5px">
                 <a href="{{ path_to_add_post }}" class="item">
 
-                  <button class='ui secondary button' id='modal-btn'>Add new Plant</button>
+                  <button style="background-color: #28bc44; " class='ui secondary button right labeled icon' >
+                    <i class="cloud upload icon"></i>
+                    Add new Plant</button>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <div class="nine wide column">
-          <table class="ui table">
+        <div class="eleven wide column">
+          <table class="ui inverted green large table">
             <tbody>
             <tr>
               <td>Username</td>

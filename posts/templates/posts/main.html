@@ -9,7 +9,7 @@
 
 
 <div class="ui grid">
-    <div class="centered eleven wide column">
+    <div class="centered thirteen wide column">
         {% for obj in qs %}
 
         <div class="ui fluid card">
@@ -98,7 +98,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="post_id" value={{obj.id}}>
                     {{ c_form }}
-                    <button type="submit" name="submit_c_form" class="ui primary button mt-5 w-full">Send</button>
+                    <button type="submit" name="submit_c_form" style="background-color: #26A560; " class="ui  button mt-5 w-full"><span style="color:white;">Send</span></button>
                 </form>
             </div>
         </div>

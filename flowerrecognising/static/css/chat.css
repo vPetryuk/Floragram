@@ -1,5 +1,5 @@
-.ui.inverted.menu.nav{
-  margin-bottom: 0px !important;
+body > nav > ol{
+  margin: 0px !important;
 }
 .ui.header{
   margin: 0  !important;
@@ -12,7 +12,7 @@ ui.container{
 #frame {
   width: 1300px !important;
   min-width: 360px;
-  height: 885px;
+  height: 863px;
   min-height: 300px;
   background: #E6EAEA;
   margin: 0 auto;
@@ -29,10 +29,11 @@ ui.container{
   max-width: 500px;
   width: 40%;
   height: 100%;
- background-color: #ce8108 !important;
+ background-color: #26a560 !important;
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
+  font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif !important;
 
 }
 @media screen and (max-width: 735px) {

@@ -14,7 +14,7 @@
 
         <div class="ui right rail tiny ">
           <a href="{{ path_to_add_discussion }}">
-          <button class="ui right labeled icon button big basic">
+          <button class="ui right labeled icon button big basic" style="background-color:#26a560">
   <i class="plus icon"></i>
   Add new discussion
 </button>
@@ -45,7 +45,7 @@
             <div class="ui grid">
 
               <h2 class="twelve wide column left floated"> {{ obj.Discussion_name }} </h2>
-              <div class="four wide column" > <a href="{% url 'chat:room' obj.slug %}"  class="ui button  right floated secondary" > Join </a></div>
+              <div class="four wide column" > <a href="{% url 'chat:room' obj.slug %}"  style="background-color:#26a560; " class="ui button  right floated secondary" > Join </a></div>
 
             </div>
               <h4><p> {{ obj.content }} </p></h4>
