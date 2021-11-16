@@ -522,3 +522,56 @@ li.creativity .piesite > #slice > .pie {
 label #id_remember{
 margin-top: 5px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+
+.drag-area{
+
+  border: 2px dashed #28bc44
+;
+  height: 400px;
+  width: 500px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+   cursor: pointer;
+}
+.drag-area.active{
+  border: 2px solid #28bc44
+;
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: #28bc44
+;
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: #28bc44
+;
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: #28bc44
+;
+  margin: 10px 0 15px 0;
+}
+
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+#id_image{
+  display: none;
+}
+#id_content{
+  margin: 10px 0;
+  width: 500px;
+}

@@ -1,52 +1,58 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-add new post
+  add new post
 {% endblock title %}
 
 {% block content %}
-  <div class="ui segment " style="width: 900px;margin: 0 auto;">
+  <div class="ui segment " style="width: 1000px;margin: 0 auto;">
 
     <div class="ui header">
-      <h1 class="ui aligned center  header massive">FloraVision</h1>
+      <h1 class="ui aligned center  header massive">FloraVision - recognise your plant</h1>
       <div class="ui fitted divider"></div>
     </div>
 
     <div class="ui two column grid">
-      <div class="ten wide column">
-<div class='ui block'>
-        <div class="header">
-          <h2> Add new plant</h2>
-    </div>
-    <div class="image content">
+      <div class="nine wide column">
+        <div class='ui block'>
 
-      <div class="description">
-        <div class="ui header"></div>
-        <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
+ <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
+          <div class="image content">
+            <div class="description">
+              <h3 style="margin: 10px 0;">Image</h3>
+              <div class="drag-area">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              </div>
+            </div>
+          </div>
+
           {% csrf_token %}
-          {{ form2.as_p }}
+
+          {{ form2.image }}
+   <h3 style="margin: 10px 0 0 0;">Description</h3>
+          {{ form2.content }}
+          <div class="actions" >
+            <button type='submit' style=" width: 500px;" class="ui positive right labeled icon button ">
+              Add new post
+
+            </button>
+          </div>
+
+          </form>
+
+        </div>
+
 
       </div>
-    </div>
-    <div class="actions">
-      <button type='submit' class="ui positive right labeled icon button">
-        Add
-        <i class="checkmark icon"></i>
-      </button>
-      </form>
-    </div>
-    </div>
 
+      <div class="seven wide column">
 
-      </div>
-
-      <div class="six wide column">
-
-        {% load static %}<img class="ui medium image " src={% static "images/Floravision.png" %} alt="Floravision">
-        <div style="margin: 0 auto; " class="ui aligned center  header massive">  Let me guess name of your plant!</div>
+        <img class="ui massive image " src={% static "images/Floravision.png" %} alt="Floravision">
+        <div style="margin: 0 auto; font-size: 28px " class="ui aligned center  header ">  Let me guess name of your plant!</div>
       </div>
     </div>
 
   </div>
 
+  <script type="text/javascript" src={% static 'js/DropZone.js' %}></script>
 {% endblock content %}

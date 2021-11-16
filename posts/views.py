@@ -126,7 +126,7 @@ def add_post_view(request):
     if request.method == 'POST':
         if form2.is_valid():
             form2.instance.author = profile
-
+            print(form2.instance.image)
             form2.save()
             return redirect('posts:recognise-post-view')
 
