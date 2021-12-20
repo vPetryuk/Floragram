@@ -143,7 +143,7 @@
 
                 <img style="height: 350px;width: 100%; object-fit: cover; position: relative;top: 0;left: 0;" src={{ obj.image.url }}>
 
-                <form action="{% url 'profiles:watering-post-view' %}"    class='watering-form absolute-form identclass{{obj.id}}' rd='{{obj.id}}'>
+                <form action="{% url 'profiles:watering-post-view' %}"   method="POST"  class='watering-form absolute-form identclass{{obj.id}}' rd='{{obj.id}}'>
                   {% csrf_token %}
                   <input type="hidden" name="post_id" value={{obj.id}}>
                   <div class="ui labeled button" tabindex="0">
@@ -230,6 +230,10 @@
         const post_id = $(this).attr('rd')
         const url = $(this).attr('action')
         let res;
+        $(`.watering-btn${post_id}`).fadeOut('fast');
+        $(`#progress${post_id}`).progress({
+              percent: 6
+            });
         $.ajax({
           type: 'POST',
           url: url,
@@ -238,11 +242,9 @@
             'post_id':post_id,
           },
           success: function(response) {
-            $(`.watering-btn${post_id}`).fadeOut('fast');
 
-            $(`#progress${post_id}`).progress({
-              percent: 6
-            });
+
+
           },
           error: function(response) {
             console.log('error', response)

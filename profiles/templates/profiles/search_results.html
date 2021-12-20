@@ -96,20 +96,20 @@
 
 
         <div class="five wide column">
-         <div class="ui fluid card " >
-          <a href="{% url 'florapedia:plant-detail' obj.pk %}">
-            <div class="image">
-              <div class="ui  orange ribbon label"  style="z-index: 999;">{{ obj.author.first_name }} {{ obj.author.last_name }} </div>
-              <div class="img-hover-zoom">
-                <img style="height: 300px;width: 100%; object-fit: cover;"  src={{obj.image.url}}>
+          <div class="ui fluid card " >
+            <a href="{% url 'posts:post-detail' obj.pk %}">
+              <div class="image">
+                <div class="ui  orange ribbon label"  style="z-index: 999;">{{ obj.author.first_name }} {{ obj.author.last_name }} </div>
+                <div class="img-hover-zoom">
+                  <img style="height: 300px;width: 100%; object-fit: cover;"  src={{obj.image.url}}>
+                </div>
               </div>
-            </div>
-          </a>
-         </div>
+            </a>
+          </div>
         </div>
 
       {% endfor %}
     </div>
   {% endif %}
-
+</div>
 {% endblock content %}

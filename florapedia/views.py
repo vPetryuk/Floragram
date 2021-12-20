@@ -11,12 +11,13 @@ from profiles.models import Profile
 @login_required
 def main_florapedia_view(request):
 
-    qs = Plant.objects.all()
+    qs = Plant.objects.all().exclude(plant_name="Unknown")
+    qsr = reversed(list(qs))
     profile = Profile.objects.get(user=request.user)
 
 
     context = {
-        'qs': qs,
+        'qs': qsr,
         'profile': profile,
     }
 

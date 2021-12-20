@@ -12,7 +12,6 @@ from posts.views import post_comment_create_and_list_view
 from profiles.views import  search_view
 
 urlpatterns = [
-    #path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
@@ -29,7 +28,6 @@ urlpatterns = [
     path('florapedia/', include('florapedia.urls', namespace='florapedia')),
     path('', post_comment_create_and_list_view, name='main'),
     path('', include('favicon.urls')),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development

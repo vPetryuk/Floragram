@@ -55,7 +55,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="post_id" value={{obj.id}}>
                           <div class="ui labeled button" tabindex="0">
-                            <button type="submit" class="ui  button like-btn{{obj.id}} ">
+                            <button  class="ui  button like-btn{{obj.id}} ">
                                 {% if profile not in obj.liked.all %}
 
                                   Like
@@ -106,18 +106,7 @@
 
         {% endfor %}
     </div>
-{#    <div class="five wide column">#}
-{#        <div class="ui segment">#}
-{#            {% if post_added %}#}
-{#                <div class="ui green message">Post added</div>#}
-{#            {% endif %}#}
-{#            <form action="" method="POST" class='ui form' enctype="multipart/form-data">#}
-{#                {% csrf_token %}#}
-{#                {{p_form}}#}
-{#                <button type='submit' name="submit_p_form" class="ui positive button w-full mt-5">Send</button>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
+
 </div>
 {% endblock content %}
 
@@ -148,16 +137,7 @@
                 let res;
                 const likes = $(`.like-count${post_id}`).text()
                 const trimCount = parseInt(likes)
-
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                        'post_id':post_id,
-                    },
-                    success: function(response) {
-                        if(trim.includes('Unlike')) {
+                if(trim.includes('Unlike')) {
                             $(`.like-btn${post_id}`).text('Like')
 
                             res = trimCount - 1
@@ -168,6 +148,15 @@
                         }
 
                         $(`.like-count${post_id}`).text(res)
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id':post_id,
+                    },
+                    success: function(response) {
+
                     },
                     error: function(response) {
                         console.log('error', response)

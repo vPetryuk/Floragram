@@ -5,7 +5,7 @@ from .models import Discussion
 
 class DiscussionModelForm(forms.ModelForm):
     Discussion_name = forms.CharField(widget=forms.Textarea(attrs={'rows':1}))
-    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 2}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 15}))
     slug = forms.CharField(widget = forms.HiddenInput(),required=False)
     author = forms.CharField(widget = forms.HiddenInput(),required=False)
     image =forms.ImageField(required=False)

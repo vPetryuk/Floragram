@@ -1,30 +1,52 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-add new post
+  add new post
 {% endblock title %}
 
 {% block content %}
-    <div class='ui segment'>
-        <div class="header">
-          <h1>Add new discussion</h1>
-    </div>
-    <div class="image content">
+  <div class='ui segment' style="max-width: 1100px; margin:0 auto;">
+    <div class="header">
 
-      <div class="description">
-        <div class="ui header"></div>
+      <h1 class="ui aligned center  header massive">Add new discussion</h1>
+      <div class="ui fitted divider"></div>
+
+
+    </div>
+    <div class="ui two column grid">
+
+      <div class="ui eight wide column">
+
         <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
           {% csrf_token %}
-          {{ form.as_p }}
+          <div style="max-width: 500px">
+            <h3 style="margin: 10px 0 ;">Disscusion name</h3>
+            {{ form.Discussion_name }}
+          </div>
+          <h3 style="margin: 10px 0 0 0;">Description</h3>
+          {{ form.content }}
+          {{ form.image }}
 
+
+          <div class="actions">
+            <button style="width: 500px; text-align: center;" type='submit' class="ui positive right labeled icon button">
+              Add
+            </button>
+
+          </div>
+        </form>
+      </div>
+      <div class="ui eight wide column">
+        <div class="image content">
+          <div class="description">
+            <h3 style="margin: 10px 0;">Image</h3>
+            <div class="drag-area" style="height: ">
+              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="actions">
-      <button type='submit' class="ui positive right labeled icon button">
-        Add
-        <i class="checkmark icon"></i>
-      </button>
-      </form>
-    </div>
-    </div>
+  </div>
+  <script type="text/javascript" src={% static 'js/DropZone.js' %}></script>
 {% endblock content %}

@@ -29,6 +29,14 @@ DEBUG = env.bool("DJANGO_DEBUG", True)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 
+GRAPH_MODELS = {
+'all_applications': False,
+   'app_labels': ["flowerrecognising.users.apps.UsersConfig",
+    "posts",
+    "profiles",
+    "florapedia",
+    "chat",],
+}
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 
 LANGUAGE_CODE = "en-us"
@@ -109,7 +117,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "flowerrecognising.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
     "posts",
     "profiles",
     "florapedia",
