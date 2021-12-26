@@ -19,16 +19,13 @@ class Message(models.Model):
     def __str__(self):
         return self.author.username
 
-
-
 class Discussion(models.Model):
     image = models.ImageField(upload_to='discussion_image', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])],default="/preloaded_img/discdef.jpg")
     Discussion_name = models.TextField()
-    participants = models.ManyToManyField(
-        User, related_name='chats', blank=True)
-    messages = models.ManyToManyField(Message, blank=True,)
+    participants = models.ManyToManyField(User, related_name='chats', blank=True)
+    messages = models.ManyToManyField(Message, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    content = content = models.TextField(blank=True)
+    content = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='discussion', blank=True, default=1)
     def __str__(self):

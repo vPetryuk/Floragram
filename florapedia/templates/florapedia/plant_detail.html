@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load embed_video_tags %}
 {% load static %}
 {% block title %}
   Florapedia
@@ -18,6 +19,13 @@
               <div class="description">
                 <img class="ui large right floated image" src={{ plant.image.url }}>
                 <h3>{{ plant.article }}</h3>
+
+                  {% if plant.video %}
+                <div >
+                {% video plant.video  '860x484' %}
+
+                  </div>
+                {% endif %}
                 <div class="header">
                   <h2>Growing conditions</h2>
                 </div>

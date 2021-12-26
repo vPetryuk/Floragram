@@ -41,17 +41,11 @@ def discussion_list_view(request):
 
     '''
     qs = Discussion.objects.all()
-
-
     profile = Profile.objects.get(user=request.user)
-
-
     context = {
         'qs': qs[::-1],
         'profile': profile,
-
     }
-
     return render(request, 'chat/forum.html', context)
 
 class DiscussionDeleteView(LoginRequiredMixin, DeleteView):
@@ -92,21 +86,7 @@ class DiscussionUpdateView(LoginRequiredMixin, UpdateView):
             form.add_error(None, "You need to be the author of the post in order to update it")
             return super().form_invalid(form)
 
-# class DiscussionDetailView(LoginRequiredMixin, DetailView):
-#     '''
-#     View for detail room page
-#     :return context: discussion - current room taken by pk
-#
-#     '''
-#     model = Discussion
-#     template_name = 'chat/room.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         slug = self.kwargs.get('slug')
-#         discussion = Discussion.objects.get(slug=slug)
-#         context['discussion'] = discussion
-#         return context
+
 
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -116,8 +96,6 @@ def unique_slug_generator(instance, new_slug=None):
         slug = new_slug
     else:
         slug = slugify(instance.Discussion_name).replace('-', '_')
-
-
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()
     if qs_exists:
