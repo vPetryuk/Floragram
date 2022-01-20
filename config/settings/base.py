@@ -55,13 +55,26 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 PROJECT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_PATH, 'database.sqlite'),
+DATABASE = 2
+MASTER_PASSWORD_REQUIRED=False
+if DEBUG and (DATABASE == 1):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(PROJECT_PATH, 'database.sqlite'),
+        }
     }
-}
-
+elif DEBUG and (DATABASE ==2):
+    DATABASES = {
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Floragram_Database',
+        'USER':'postgres',
+        'PASSWORD':'admin',
+        'HOST': 'localhost',
+        'PORT': '5432'
+        }
+    }
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -370,3 +383,4 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 
 }
+DEBUG = TEMPLATE_DEBUG = True

@@ -7,7 +7,7 @@ const input = document.getElementById('id_avatar')
 const avatar = document.getElementById('profile_avatar')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const first_name = document.getElementById('id_first_name')
-const last_name = document.getElementById('id_first_name')
+const last_name = document.getElementById('id_last_name')
 const bio = document.getElementById('id_bio')
 
 input.addEventListener('change', ()=>{
