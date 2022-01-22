@@ -8,167 +8,167 @@
 {% block content %}
 
 
-<div class="ui grid">
+  <div class="ui grid">
     <div class="centered thirteen wide column">
-        {% for obj in qs %}
+      {% for obj in qs %}
 
         <div class="ui fluid card">
-            <div class="content">
-                <div class="right floated meta">
-                <div class="ui grid">
-                    <div class="row">
-                        {% ifequal request.user obj.author.user %}
-                            <a href="{% url 'posts:post-update' obj.pk %}"><button class="ui button bwhite-lg ">Update</button></a>
-                            <a href="{% url 'posts:post-delete' obj.pk %}"><button class="ui button bwhite-lg ">Delete</button></a>
-                        {% endifequal %}
-                    </div>
+          <div class="content">
+            <div class="right floated meta">
+              <div class="ui grid">
+                <div class="row">
+                  {% ifequal request.user obj.author.user %}
+                    <a href="{% url 'posts:post-update' obj.pk %}"><button class="ui button bwhite-lg ">Update</button></a>
+                    <a href="{% url 'posts:post-delete' obj.pk %}"><button class="ui button bwhite-lg ">Delete</button></a>
+                  {% endifequal %}
                 </div>
-
-                </div>
-             <a href={{obj.author.get_absolute_url}}>
-                <img class="ui avatar image img-cover" src={{obj.author.avatar.url}}>
-             </a>
-                {{ obj.author.user }} <span style="color:gray;font-size:12px"> - {{ obj.created|timesince}} ago </span>
-            </div>
-            <div class="ui fluid image pd">
-                {% if obj.image %}
-  <a href="{% url 'posts:post-detail' obj.pk %}">
-                    <img src={{obj.image.url}}>
-  </a>
-                {% endif %}
-            </div>
-
-
-
-            <div class="content">
-               <h2><p> {{ obj.plant_name }} </p></h2>
-                <p> {{ obj.content }} </p>
-
+              </div>
 
             </div>
-            <div class="extra content">
-                <div class="mb-5">
-
-                </div>
-             <div class="right floated">
-                    <form action="{% url 'posts:like-post-view' %}" method="POST" class='like-form' id='{{obj.id}}'>
-                        {% csrf_token %}
-                        <input type="hidden" name="post_id" value={{obj.id}}>
-                          <div class="ui labeled button" tabindex="0">
-                            <button  class="ui  button like-btn{{obj.id}} ">
-                                {% if profile not in obj.liked.all %}
-
-                                  Like
-                                  </button>
-                                  <a class="ui basic label">
-                                  <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
-                                  </a>
-                                {% else %}
-                                  Unlike
-                                  </button>
-                                  <a class="ui basic left pointing label">
-                                   <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
-                                   </a>
-                                {% endif %}
+            <a href="{% url 'profiles:profile-detail-view' obj.author.pk %}">
+              <img class="ui avatar image img-cover" src={{obj.author.avatar.url}}>
+            </a>
+            {{ obj.author.user }} <span style="color:gray;font-size:12px"> - {{ obj.created|timesince}} ago </span>
+          </div>
+          <div class="ui fluid image pd">
+            {% if obj.image %}
+              <a href="{% url 'posts:post-detail' obj.pk %}">
+                <img src={{obj.image.url}}>
+              </a>
+            {% endif %}
+          </div>
 
 
-                          </div>
 
-                    </form>
-                </div>
-                <button class="cmt_btn ui button mb-5">
-                  <i class="comment icon"></i>
-                <span> {{ obj.num_comments }} comments</span>
-                </button>
-                <div class="comment-box">
-                {% if obj.comment_set.all %}
-                    {% for c in obj.comment_set.all %}
+          <div class="content">
+            <h2><p> {{ obj.plant_name }} </p></h2>
+            <p> {{ obj.content }} </p>
 
-                        <div class="ui segment mb-5">
-                            <img class="ui avatar image img-cover" src={{c.user.avatar.url}}>
-                            <span>{{ c.user.first_name }} </span>  <span>{{ c.user.last_name }}</span>
-                            <div class='mt-5'>{{ c.body }}</div>
-                        </div>
 
-                    {% endfor %}
-                {% endif %}
-                </div>
+          </div>
+          <div class="extra content">
+            <div class="mb-5">
 
-                <form action="" method="POST"class='ui fluid form'>
-                    {% csrf_token %}
-                    <input type="hidden" name="post_id" value={{obj.id}}>
-                    {{ c_form }}
-                    <button type="submit" name="submit_c_form" style="background-color: #26A560; " class="ui  button mt-5 w-full"><span style="color:white;">Send</span></button>
-                </form>
             </div>
+            <div class="right floated">
+              <form action="{% url 'posts:like-post-view' %}" method="POST" class='like-form' id='{{obj.id}}'>
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value={{obj.id}}>
+                <div class="ui labeled button" tabindex="0">
+                  <button  class="ui  button like-btn{{obj.id}} ">
+                    {% if profile not in obj.liked.all %}
+
+                      Like
+                      </button>
+                      <a class="ui basic label">
+                        <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
+                      </a>
+                    {% else %}
+                      Unlike
+                      </button>
+                      <a class="ui basic left pointing label">
+                        <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
+                      </a>
+                    {% endif %}
+
+
+                </div>
+
+              </form>
+            </div>
+            <button class="cmt_btn ui button mb-5">
+              <i class="comment icon"></i>
+              <span> {{ obj.num_comments }} comments</span>
+            </button>
+            <div class="comment-box">
+              {% if obj.comment_set.all %}
+                {% for c in obj.comment_set.all %}
+
+                  <div class="ui segment mb-5">
+                    <img class="ui avatar image img-cover" src={{c.user.avatar.url}}>
+                    <span>{{ c.user.first_name }} </span>  <span>{{ c.user.last_name }}</span>
+                    <div class='mt-5'>{{ c.body }}</div>
+                  </div>
+
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <form action="" method="POST"class='ui fluid form'>
+              {% csrf_token %}
+              <input type="hidden" name="post_id" value={{obj.id}}>
+              {{ c_form }}
+              <button type="submit" name="submit_c_form" style="background-color: #26A560; " class="ui  button mt-5 w-full"><span style="color:white;">Send</span></button>
+            </form>
+          </div>
         </div>
 
 
-        {% endfor %}
+      {% endfor %}
     </div>
 
-</div>
+  </div>
 {% endblock content %}
 
 {% block scripts %}
-    <script>
-        $( document ).ready(function() {
-            let display = false
-            $(".cmt_btn").click(function () {
-                if (display===false) {
-                    $(this).next(".comment-box").show("slow");
-                    display=true
-                } else {
-                    $(this).next(".comment-box").hide("slow");
-                    display=false
-                }
-            });
+  <script>
+    $( document ).ready(function() {
+      let display = false
+      $(".cmt_btn").click(function () {
+        if (display===false) {
+          $(this).next(".comment-box").show("slow");
+          display=true
+        } else {
+          $(this).next(".comment-box").hide("slow");
+          display=false
+        }
+      });
 
-            $('.like-form').submit(function(e){
-                e.preventDefault()
+      $('.like-form').submit(function(e){
+        e.preventDefault()
 
-                const post_id = $(this).attr('id')
+        const post_id = $(this).attr('id')
 
-                const likeText = $(`.like-btn${post_id}`).text()
-                const trim = $.trim(likeText)
+        const likeText = $(`.like-btn${post_id}`).text()
+        const trim = $.trim(likeText)
 
-                const url = $(this).attr('action')
+        const url = $(this).attr('action')
 
-                let res;
-                const likes = $(`.like-count${post_id}`).text()
-                const trimCount = parseInt(likes)
-                if(trim.includes('Unlike')) {
-                            $(`.like-btn${post_id}`).text('Like')
+        let res;
+        const likes = $(`.like-count${post_id}`).text()
+        const trimCount = parseInt(likes)
+        if(trim.includes('Unlike')) {
+          $(`.like-btn${post_id}`).text('Like')
 
-                            res = trimCount - 1
-                        } else {
-                            $(`.like-btn${post_id}`).text('Unlike')
+          res = trimCount - 1
+        } else {
+          $(`.like-btn${post_id}`).text('Unlike')
 
-                            res = trimCount + 1
-                        }
+          res = trimCount + 1
+        }
 
-                        $(`.like-count${post_id}`).text(res)
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                        'post_id':post_id,
-                    },
-                    success: function(response) {
+        $(`.like-count${post_id}`).text(res)
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: {
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'post_id':post_id,
+          },
+          success: function(response) {
 
-                    },
-                    error: function(response) {
-                        console.log('error', response)
-                    }
-                })
+          },
+          error: function(response) {
+            console.log('error', response)
+          }
+        })
 
-            })
-        });
-    </script>
-{#  3d #}
-<script src="{% static 'js/three.min.js' %}"></script>
+      })
+    });
+  </script>
+  {#  3d #}
+  <script src="{% static 'js/three.min.js' %}"></script>
   <script src="{% static 'js/GLTFLoader.js' %}"></script>
-<script src="{% static 'js/3dscene.js' %}"></script>
+  <script src="{% static 'js/3dscene.js' %}"></script>
 
 {% endblock scripts %}

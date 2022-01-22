@@ -508,7 +508,7 @@ li.creativity .piesite > #slice > .pie {
 }
 #Plant3DObj{
 
-  position: absolute;
+  position: fixed;
 
 
   z-index: -1;

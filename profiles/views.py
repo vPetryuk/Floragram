@@ -152,15 +152,11 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'profiles/detail.html'
 
-    def get_object(self):
-        slug = self.kwargs.get('slug')
-        profile = Profile.objects.get(slug=slug)
-        return profile
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = User.objects.get(username__iexact=self.request.user)
-        profile = Profile.objects.get(user=user)
+        pk = self.kwargs.get('pk')
+        profile = Profile.objects.get(pk=pk)
         rel_r = Relationship.objects.filter(sender=profile)
         rel_s = Relationship.objects.filter(receiver=profile)
         rel_receiver = []

@@ -64,7 +64,7 @@ class Profile(models.Model):
         return f"{self.user.username}-{self.created.strftime('%d-%m-%Y')}"
 
     def get_absolute_url(self):
-        return reverse("profiles:profile-detail-view", kwargs={"slug": self.slug})
+        return reverse("profiles:profile-detail-view", kwargs={"pk": self.pk})
 
     def get_friends(self):
         return self.friends.all()
